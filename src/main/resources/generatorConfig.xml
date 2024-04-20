@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="h2DB" targetRuntime="MyBatis3Kotlin">
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/h2database/h2DB;AUTO_SERVER=TRUE"
+                        userId="sa"
+                        password="sa">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="me.domantelio.psk.mybatis.model"
+                            targetProject="src/main/kotlin"/>
+
+        <sqlMapGenerator targetPackage="me.domantelio.psk.mybatis.xml" targetProject="src/main/kotlin" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="me.domantelio.psk.mybatis.dao" targetProject="src/main/kotlin" />
+
+
+        <table schema="public" tableName="item">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+        </table>
+    </context>
+</generatorConfiguration>

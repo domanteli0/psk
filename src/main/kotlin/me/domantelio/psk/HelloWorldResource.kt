@@ -1,4 +1,4 @@
-package org.eclipse.jakarta.hello
+package me.domantelio.psk
 
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
@@ -10,10 +10,8 @@ import jakarta.ws.rs.core.MediaType
 public class HelloWorldResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public fun hello(@QueryParam("name") name: String): Hello {
-		val name = if (name == null || name.trim().isEmpty())  {
-			"world"
-		} else { name }
+	public fun hello(@QueryParam("name") name: String?): Hello {
+		val name = if (name?.trim().isNullOrEmpty()) { "world" } else { name!!.trim() }
 
 		return Hello(name)
 	}
