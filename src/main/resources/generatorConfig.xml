@@ -14,9 +14,11 @@
         <javaModelGenerator targetPackage="me.domantelio.psk.mybatis.model"
                             targetProject="src/main/kotlin"/>
 
-        <sqlMapGenerator targetPackage="me.domantelio.psk.mybatis.xml" targetProject="src/main/kotlin" />
-        <javaClientGenerator type="XMLMAPPER" targetPackage="me.domantelio.psk.mybatis.dao" targetProject="src/main/kotlin" />
+        <sqlMapGenerator targetPackage="me.domantelio.psk.mybatis.xml"
+                         targetProject="src/resources/mybatis.xml" />
 
+        <javaClientGenerator type="XMLMAPPER" targetPackage="me.domantelio.psk.mybatis.dao"
+                             targetProject="src/main/kotlin" />
 
         <table schema="public" tableName="item">
             <generatedKey column="id" identity="true" sqlStatement="JDBC" />

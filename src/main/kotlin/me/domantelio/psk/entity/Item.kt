@@ -4,6 +4,10 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
+//@Table(name = "ITEM")
+@NamedQueries(
+    NamedQuery(name = "Item.findAll", query = "select i from Item as i")
+)
 class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
