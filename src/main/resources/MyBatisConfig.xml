@@ -10,11 +10,13 @@
         <environment id="development">
             <transactionManager type="MANAGED"/>
             <dataSource type="JNDI">
-                <property name="data_source" value="primary"/>
+                <property name="data_source" value="h2DataSource"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis.xml/ItemMapper.xml"/>
+<!--        <mapper class="me.domantelio.psk.mybatis.mapper.ItemMapperKt"/>-->
+        <mapper class="me.domantelio.psk.mybatis.mapper.ItemMapper"/>
+<!--        <package name="me.domantelio.psk.mybatis.mapper"/>-->
     </mappers>
 </configuration>

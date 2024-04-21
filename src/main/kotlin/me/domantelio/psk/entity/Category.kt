@@ -3,11 +3,13 @@ package me.domantelio.psk.entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import lombok.NoArgsConstructor
 import java.util.*
 
+@NoArgsConstructor
 open class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
-    val name: String,
+    var id: UUID = UUID.randomUUID(),
+    var name: String = "",
 )

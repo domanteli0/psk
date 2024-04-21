@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
->
+<html xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="jakarta.faces.passthrough">
 <h:head/>
 <h:body>
     <h2>Items:</h2>
     <ol>
         <ui:repeat value="#{itemsMyBatis.allItems}" var="item">
-            <li>#{item.id}</li>
+            <li>#{item.price}</li>
             <!--            <li><h:link value="#{item.name}" outcome="item" /></li>-->
         </ui:repeat>
     </ol>
-    <h:form>
-        <h:inputText value="#{itemsMyBatis.itemToCreate.price}" required="true"/>
-        <h:inputText value="#{itemsMyBatis.itemToCreate.name}" required="true"/>
-        <h:inputText value="#{itemsMyBatis.itemToCreate.description}" required="false"/>
+    <h:form if="itemForm">
+        <h:outputText for="price" value="Price: "/>
+        <h:inputText id="price"
+                     value="#{itemsMyBatis.itemToCreate.price}"
+                     required="true"
+                     p:type="number" p:placeholder="Enter price"/>
+        <br/>
+        <h:outputText for="name" value="Name: "/>
+        <h:inputText id="name" value="#{itemsMyBatis.itemToCreate.name}" required="true"/>
+        <br/>
+        <h:outputText for="description" value="Description: "/>
+        <h:inputText id="description" value="#{itemsMyBatis.itemToCreate.description}" required="false"/>
+        <br/>
         <h:commandButton
                 value="Add new item"
-                actionListener="#{itemsMyBatis.createItem}"
-                action="index?faces-redirect=true"/>
+                f:actionListener="#{itemsMyBatis.createItem}"/>
+<!--                action="index?faces-redirect=true"/>-->
     </h:form>
 
-    <p>Blah Blah Blah</p>
+
+<!--    <h2>Categories:</h2>-->
+<!--    <ol>-->
+<!--        <ui:repeat value="#{categoryFace.allCategories}" var="category">-->
+<!--            <li>#{category.name}</li>-->
+<!--        </ui:repeat>-->
+<!--    </ol>-->
+    <h:form if="categoryForm">
+        <h:outputText for="catName" value="Name: "/>
+        <h:inputText id="catName" value="#{categoryFace.categoryToCreate.name}" required="true"/>
+        <br/>
+        <h:commandButton
+                value="Create new category"
+                f:actionListener="#{categoryFace.createCategory}"/>
+        <!--                action="index?faces-redirect=true"/>-->
+    </h:form>
+
+    <p>Blah Blah Blah Blah</p>
 
     <a href="/psk/rest/hello?name=Jane"> rest api here</a>
 </h:body>

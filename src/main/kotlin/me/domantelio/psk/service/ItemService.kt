@@ -1,5 +1,6 @@
 package me.domantelio.psk.service
 
+import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.inject.Model
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
@@ -10,48 +11,46 @@ import me.domantelio.psk.entity.Item
 import java.util.*
 import java.util.logging.Logger
 
-@Model
-open class ItemService {
+@ApplicationScoped
+open class ItemService() {
     @PersistenceContext
-    var em: EntityManager? = null
+    private lateinit var em: EntityManager
 
     @Transactional
     open fun createItem(item: Item) {
-        em!!.persist(item)
+        em.persist(item)
         LOGGER.info("Created Item $item")
     }
 
     @Transactional
     open fun updateItem(item: Item) {
-        var itemToUpdate: Item = findItemById(item.id)
-        itemToUpdate.name = item.name
-        itemToUpdate.price = item.price
+        em.merge(item)
         LOGGER.info("Updated item$item")
     }
 
     @Transactional
     open fun deleteItem(itemId: UUID) {
         val c: Item = findItemById(itemId)
-        em!!.remove(c)
+        em.remove(c)
         LOGGER.info("Deleted Item with id$itemId")
     }
 
     fun findItemById(id: UUID): Item {
-        val item: Item = em?.find(Item::class.java, id)
+        val item: Item = em.find(Item::class.java, id)
             ?: throw WebApplicationException("Item with id of $id does not exist.", 404)
         return item
     }
 
     fun findAllItems(): List<Item> {
-        val query: Query = em!!.createQuery("SELECT c FROM Item c")
-        return query.getResultList() as MutableList<Item>
+        val query: Query = em.createQuery("SELECT c FROM Item c")
+        return query.resultList as MutableList<Item>
     }
 
     fun findItemByName(name: String): Item {
-        val query: Query = em!!
+        val query: Query = em
             .createQuery("SELECT c FROM Item c WHERE c.name = :name")
         query.setParameter("name", name)
-        return query.getSingleResult() as Item
+        return query.singleResult as Item
     }
 
     companion object {

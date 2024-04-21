@@ -1,8 +1,8 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-04-20T20:03:32.585711+03:00
+ * Generation date: 2024-04-21T01:18:07.221455+03:00
  */
-package me.domantelio.psk.mybatis.dao
+package me.domantelio.psk.mybatis.mapper
 
 import java.sql.JDBCType
 import org.mybatis.dynamic.sql.AliasableSqlTable
