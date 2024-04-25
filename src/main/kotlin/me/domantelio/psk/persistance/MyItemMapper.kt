@@ -6,7 +6,6 @@ import jakarta.enterprise.inject.Default
 import jakarta.enterprise.inject.Produces
 import jakarta.inject.Inject
 import jakarta.inject.Named
-import jakarta.inject.Qualifier
 import me.domantelio.psk.mybatis.mapper.ItemMapper
 import org.apache.ibatis.session.SqlSession
 

@@ -1,16 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-
-<html xmlns:h="jakarta.faces.html"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:f="jakarta.faces.core"
-      xmlns:p="jakarta.faces.passthrough">
+<html xmlns:h  = "jakarta.faces.html"
+      xmlns:ui = "jakarta.faces.facelets"
+      xmlns:f  = "jakarta.faces.core"
+      xmlns:p  = "jakarta.faces.passthrough">
 <h:head/>
 <h:body>
+    <h:outputStylesheet library="css" name="darker.css"/>
+
     <h2>Items:</h2>
     <ol>
         <ui:repeat value="#{itemsMyBatis.allItems}" var="item">
-            <li>#{item.price}</li>
-            <!--            <li><h:link value="#{item.name}" outcome="item" /></li>-->
+            <li><h:link value="#{item}" outcome="item" /></li>
         </ui:repeat>
     </ol>
     <h:form if="itemForm">
@@ -33,12 +34,12 @@
     </h:form>
 
 
-<!--    <h2>Categories:</h2>-->
-<!--    <ol>-->
-<!--        <ui:repeat value="#{categoryFace.allCategories}" var="category">-->
-<!--            <li>#{category.name}</li>-->
-<!--        </ui:repeat>-->
-<!--    </ol>-->
+    <h2>Categories:</h2>
+    <ol>
+        <ui:repeat value="#{categoryFace.allCategories}" var="category">
+            <li><p>#{category.name}</p></li>
+        </ui:repeat>
+    </ol>
     <h:form if="categoryForm">
         <h:outputText for="catName" value="Name: "/>
         <h:inputText id="catName" value="#{categoryFace.categoryToCreate.name}" required="true"/>
@@ -49,8 +50,6 @@
         <!--                action="index?faces-redirect=true"/>-->
     </h:form>
 
-    <p>Blah Blah Blah Blah</p>
-
-    <a href="/psk/rest/hello?name=Jane"> rest api here</a>
+    <p>Blah Blah Blah Blah Blah</p>
 </h:body>
 </html>

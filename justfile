@@ -12,5 +12,8 @@ generate ARGS="":
     perl -p -i -e 's/^import org.apache.ibatis.annotations.Mapper/import org.mybatis.cdi.Mapper/g' \
       src/main/kotlin/me/domantelio/psk/mybatis/mapper/ItemMapper.kt
 
+open-index:
+    open http://localhost:8080/psk/index.xhtml
+
 clean:
     mvn clean

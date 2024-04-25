@@ -14,5 +14,6 @@ class Item {
     var id: UUID = UUID.randomUUID()
     var name: String = ""
     var price: Int = 0
+    @Column(name="desc")
     var description: String = ""
 }

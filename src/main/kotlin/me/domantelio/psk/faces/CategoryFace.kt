@@ -1,4 +1,4 @@
- package me.domantelio.psk.face
+ package me.domantelio.psk.faces
 
 import jakarta.annotation.PostConstruct
 import jakarta.enterprise.context.RequestScoped
@@ -31,17 +31,15 @@ open class CategoryFace(
 
     @PostConstruct
     fun init() {
-//        this.loadAllCategorys()
+        this.loadAllCategories()
     }
 
-    private fun loadAllCategorys() {
+    private fun loadAllCategories() {
         this.allCategories = service.findAllCategories()
     }
 
     @Transactional
     open fun createCategory(): String {
-        categoryToCreate.id = UUID.randomUUID()
-
         service.createCategory(categoryToCreate)
         return "/myBatis/categories?faces-redirect=true"
     }

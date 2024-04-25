@@ -1,4 +1,4 @@
- package me.domantelio.psk.face
+ package me.domantelio.psk.faces
 
 import jakarta.annotation.PostConstruct
 import jakarta.enterprise.context.RequestScoped

@@ -24,6 +24,7 @@ class CategoryController() {
     @Inject
     private lateinit var service: CategoryService
 
+    // crashes on not found, probably malformed id too
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -33,6 +34,8 @@ class CategoryController() {
         return Response.ok(category).build()
     }
 
+    // TODO: this gets overshadowed by getById
+    @Path("")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     fun getById(@QueryParam("name") categoryName: String?): Response {
@@ -40,4 +43,5 @@ class CategoryController() {
 
         return Response.ok(category).build()
     }
+
 }

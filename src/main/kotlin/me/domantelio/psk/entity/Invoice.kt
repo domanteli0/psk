@@ -3,14 +3,15 @@ package me.domantelio.psk.entity
 import jakarta.persistence.*
 import java.util.*
 
+@Entity
 open class Invoice(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
-    val name: String,
-    val price: Int,
-    @ManyToOne
-    val items: List<Item>,
-    @ManyToMany
-    val categories: Set<Category>,
+    var id: UUID = UUID.randomUUID(),
+    var name: String,
+    var price: Int,
+    @OneToMany(cascade = [CascadeType.MERGE])
+    var items: MutableList<Item> = mutableListOf(),
+    @ManyToMany(cascade = [CascadeType.MERGE])
+    var categories: MutableSet<Category> = mutableSetOf()
 )

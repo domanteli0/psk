@@ -1,0 +1,72 @@
+/* Blatantly copied from ChatGPT */
+
+body {
+    background-color: #222;
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+}
+
+a {
+    color: #7fa5ff;
+}
+
+a:hover {
+    color: #4d88ff;
+}
+
+button, .button {
+    background-color: #333;
+    color: #fff;
+}
+
+button:hover, .button:hover {
+    background-color: #555;
+}
+
+.container {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+hr {
+    border-top: 1px solid #555;
+}
+
+input {
+    background-color: #333;
+    color: #ddd;
+    border: 1px solid #555;
+    padding: 2px 3px;
+    border-radius: 4px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: #7fa5ff;
+    box-shadow: 0 0 8px rgba(127, 165, 255, 0.8);
+}
+
+input[type="checkbox"], input[type="radio"] {
+    accent-color: #7fa5ff;
+}
+
+/* Range Input */
+input[type="range"] {
+    accent-color: #7fa5ff; /* Slider color */
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input:focus {
+    outline: none;
+    border-color: #5591ff;
+    background-color: #444;
+}
+
+
