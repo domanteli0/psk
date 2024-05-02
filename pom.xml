@@ -117,7 +117,6 @@
             <version>10.17.1.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbytools</artifactId>
@@ -184,16 +183,34 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.4.2</version>
                 <configuration>
-                    <contexts>h2DB</contexts>
+                    <contexts>EventDB</contexts>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>
                 <dependencies>
+
                     <dependency>
-                        <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId>
-                        <version>${h2.version}</version>
+                        <groupId>org.apache.derby</groupId>
+                        <artifactId>derby</artifactId>
+                        <version>10.17.1.0</version>
                     </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.derby</groupId>
+                        <artifactId>derbyshared</artifactId>
+                        <version>10.17.1.0</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.apache.derby</groupId>
+                        <artifactId>derbytools</artifactId>
+                        <version>10.17.1.0</version>
+                    </dependency>
+<!--                    <dependency>-->
+<!--                        <groupId>com.h2database</groupId>-->
+<!--                        <artifactId>h2</artifactId>-->
+<!--                        <version>${h2.version}</version>-->
+<!--                    </dependency>-->
                 </dependencies>
 
             </plugin>

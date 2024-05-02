@@ -4,11 +4,10 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <context id="h2DB" targetRuntime="MyBatis3Kotlin">
-        <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:~/h2database/h2DB;AUTO_SERVER=TRUE"
-                        userId="sa"
-                        password="sa">
+    <context id="psk-generator" targetRuntime="MyBatis3Kotlin">
+        <jdbcConnection driverClass="org.apache.derby.jdbc.EmbeddedDriver"
+                        connectionURL="jdbc:derby:jpa-unit"
+        >
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="me.domantelio.psk.mybatis.model"

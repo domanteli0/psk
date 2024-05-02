@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-//@Table(name = "ITEM")
+@Table(name = "ITEM")
 @NamedQueries(
     NamedQuery(name = "Item.findAll", query = "select i from Item as i")
 )
@@ -14,6 +14,6 @@ open class Item {
     var id: UUID? = UUID.randomUUID()
     var name: String = ""
     var price: Int = 0
-    @Column(name = "desc")
+    @Column(name = "descr")
     var description: String = ""
 }

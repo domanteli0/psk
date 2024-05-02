@@ -77,7 +77,6 @@ fun ItemMapper.deleteByPrimaryKey(id_: ByteArray) =
 
 fun ItemMapper.insert(row: Item) =
     insert(this::insert, row, item) {
-        map(id) toProperty "id"
         map(price) toProperty "price"
         map(desc) toProperty "desc"
         map(name) toProperty "name"

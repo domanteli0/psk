@@ -15,11 +15,30 @@
         <feature>jsonp-2.1</feature>
         <feature>cdi-4.0</feature>
         <feature>persistence-3.1</feature>
+        <feature>adminCenter-1.0</feature>
+        <feature>adminCenter-1.0</feature>
+        <feature>restConnector-2.0</feature>
+        <feature>mpOpenAPI-3.1</feature>
         <!--        <feature>jsonb-3.0</feature>-->
         <!--        <feature>jsonp-2.1</feature>-->
         <!--        <feature>mpConfig-3.1</feature>-->
         <!--        <feature>mpRestClient-3.0</feature>-->
     </featureManager>
+
+    <basicRegistry id="basic">
+        <user name="admin" password="password" />
+        <user name="reader" password="readerpwd" />
+    </basicRegistry>
+    <administrator-role>
+        <user>admin</user>
+    </administrator-role>
+    <reader-role>
+        <user>reader</user>
+    </reader-role>
+    <remoteFileAccess>
+        <writeDir>${server.config.dir}</writeDir>
+    </remoteFileAccess>
+<!--    <keyStore id="defaultKeyStore" password="Liberty" />-->
 
     <variable name="http.port" defaultValue="8080"/>
     <variable name="https.port" defaultValue="8081"/>
@@ -38,6 +57,13 @@
     <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">
         <jdbcDriver libraryRef="derbyJDBCLib" />
         <properties.derby.embedded databaseName="EventDB" createDatabase="create" />
+    </dataSource>
+
+    <dataSource id="formybatis" jndiName="jdbc/formybatis">
+        <jdbcDriver libraryRef="derbyJDBCLib"/>
+        <properties>
+
+        </properties>
     </dataSource>
 
 <!--    <library id="HibernateLib">-->

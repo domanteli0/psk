@@ -6,5 +6,5 @@ package me.domantelio.psk.mybatis.model
 
 data class Category(
     var id: ByteArray? = null,
-    var name: String? = null
+    var name: String? = ""
 )
