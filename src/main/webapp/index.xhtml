@@ -1,45 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns:h  = "jakarta.faces.html"
-      xmlns:ui = "jakarta.faces.facelets"
-      xmlns:f  = "jakarta.faces.core"
-      xmlns:p  = "jakarta.faces.passthrough">
-<h:head/>
+<html xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="jakarta.faces.passthrough">
+<h:head>
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css"></link>
+</h:head>
 <h:body>
     <h:outputStylesheet library="css" name="darker.css"/>
+    <h:outputStylesheet library="css" name="table.css"/>
 
-    <h2>Items:</h2>
-    <ol>
-        <ui:repeat value="#{itemsMyBatis.allItems}" var="item">
-            <li><h:link value="#{item}" outcome="item" /></li>
-        </ui:repeat>
-    </ol>
-    <h:form if="itemForm">
-        <h:outputText for="price" value="Price: "/>
-        <h:inputText id="price"
-                     value="#{itemsMyBatis.itemToCreate.price}"
-                     required="true"
-                     p:type="number" p:placeholder="Enter price"/>
-        <br/>
-        <h:outputText for="name" value="Name: "/>
-        <h:inputText id="name" value="#{itemsMyBatis.itemToCreate.name}" required="true"/>
-        <br/>
-        <h:outputText for="description" value="Description: "/>
-        <h:inputText id="description" value="#{itemsMyBatis.itemToCreate.description}" required="false"/>
-        <br/>
-        <h:commandButton
-                value="Add new item"
-                f:actionListener="#{itemsMyBatis.createItem}"/>
-<!--                action="index?faces-redirect=true"/>-->
+    <h2>Invoices</h2>
+
+
+    <h:form if="invoiceForm">
+        <h:panelGrid columns="8">
+            <h:inputText id="name"
+                         value="#{indexInvoiceFace.invoiceToCreate.name}"
+                         p:placeholder="Name"
+                         required="true"/>
+            <h:commandButton
+                    value="Create new invoice"
+                    f:actionListener="#{indexInvoiceFace.createInvoice}"/>
+        </h:panelGrid>
+        <!--                action="index?faces-redirect=true"/>-->
     </h:form>
 
+    <h:dataTable value="#{indexInvoiceFace.allInvoices}" var="invoice">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{invoice.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Price</f:facet>
+            #{invoice.total_price}
+        </h:column>
+    </h:dataTable>
 
-    <h2>Categories:</h2>
-    <ol>
-        <ui:repeat value="#{categoryFace.allCategories}" var="category">
-            <li><p>#{category.name}</p></li>
-        </ui:repeat>
-    </ol>
+    <h2>Items</h2>
+
+    <h:form if="itemForm">
+        <h:panelGrid columns="8">
+            <h:inputText id="itemName"
+                         value="#{indexItemFace.itemToCreate.name}"
+                         p:placeholder="Name"
+                         required="true"/>
+            <h:inputText id="itemPrice"
+                         value="#{indexItemFace.itemToCreate.price}"
+                         required="true"
+                         p:type="number" p:placeholder="Price"/>
+<!--            <br/>-->
+<!--            <h:outputText for="description" value="Description: "/>-->
+            <h:inputText id="itemDescription"
+                         value="#{indexItemFace.itemToCreate.desc}"
+                         p:placeholder="Description"
+                         required="false"/>
+<!--            <br/>-->
+            <h:commandButton
+                    value="Add new item"
+                    f:actionListener="#{indexItemFace.createItem}"/>
+        </h:panelGrid>
+        <!--                action="index?faces-redirect=true"/>-->
+    </h:form>
+    <h:dataTable value="#{indexItemFace.allItems}" var="item">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{item.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Price</f:facet>
+            #{item.price}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Description</f:facet>
+            #{item.description}
+        </h:column>
+    </h:dataTable>
+    <!--    <ol>-->
+    <!--        <ui:repeat value="#{indexItemFace.allItems}" var="item">-->
+    <!--            <li><h:link value="#{item}" outcome="item" /></li>-->
+    <!--        </ui:repeat>-->
+    <!--    </ol>-->
+
+
+    <h2>Categories</h2>
+    <h:dataTable value="#{categoryFace.allCategories}" var="category">
+        <h:column>
+            <f:facet name="header">Id</f:facet>
+            #{category.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{category.name}
+        </h:column>
+    </h:dataTable>
+
     <h:form if="categoryForm">
         <h:outputText for="catName" value="Name: "/>
         <h:inputText id="catName" value="#{categoryFace.categoryToCreate.name}" required="true"/>

@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="h2unit" transaction-type="JTA">
-        <jta-data-source>h2DataSource</jta-data-source>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="jpa-unit" transaction-type="JTA">
+        <jta-data-source>jdbc/eventjpadatasource</jta-data-source>
         <properties>
-            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="jakarta.persistence.schema-generation.database.action"
+                      value="create"/>
+            <property name="jakarta.persistence.schema-generation.scripts.action"
+                      value="create"/>
+            <property name="jakarta.persistence.schema-generation.scripts.create-target"
+                      value="createDDL.ddl"/>
         </properties>
     </persistence-unit>
+    <!--<?xml version="1.0" encoding="UTF-8"?>-->
+    <!--<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">-->
+    <!--    <persistence-unit name="jpa-unit" transaction-type="JTA">-->
+    <!--&lt;!&ndash;        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>&ndash;&gt;-->
+    <!--&lt;!&ndash;                <jta-data-source>h2DataSource</jta-data-source>&ndash;&gt;-->
+    <!--        <jta-data-source>jdbc/jpadatasource</jta-data-source>-->
+    <!--        <class>me.domantelio.psk.entity.Category</class>-->
+    <!--        <class>me.domantelio.psk.entity.Invoice</class>-->
+    <!--        <class>me.domantelio.psk.entity.Item</class>-->
+    <!--        <properties>-->
+    <!--            <property name="jakarta.persistence.schema-generation.database.action"-->
+    <!--                      value="create"/>-->
+    <!--            <property name="jakarta.persistence.schema-generation.scripts.action"-->
+    <!--                      value="create"/>-->
+    <!--            <property name="jakarta.persistence.schema-generation.scripts.create-target"-->
+    <!--                      value="createDDL.ddl"/>-->
+    <!--        </properties>-->
+    <!--    </persistence-unit>-->
+    <!--</persistence>-->
 </persistence>

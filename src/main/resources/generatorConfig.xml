@@ -20,5 +20,11 @@
         <table schema="public" tableName="item">
             <generatedKey column="id" identity="true" sqlStatement="JDBC" />
         </table>
+        <table schema="public" tableName="category">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+        </table>
+        <table schema="public" tableName="invoice">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+        </table>
     </context>
 </generatorConfiguration>

@@ -11,10 +11,6 @@ import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import me.domantelio.psk.entity.Category
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.id
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
-import me.domantelio.psk.mybatis.mapper.ItemMapper
-import me.domantelio.psk.mybatis.mapper.select
 import me.domantelio.psk.service.CategoryService
 import java.util.UUID
 

@@ -17,4 +17,5 @@ open class MyBatis() {
             Resources.getResourceAsStream("MyBatisConfig.xml")
         )
     }
+
 }

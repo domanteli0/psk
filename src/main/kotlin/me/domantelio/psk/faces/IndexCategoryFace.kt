@@ -1,4 +1,4 @@
- package me.domantelio.psk.faces
+package me.domantelio.psk.faces
 
 import jakarta.annotation.PostConstruct
 import jakarta.enterprise.context.RequestScoped
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor
 import me.domantelio.psk.entity.Category
 import me.domantelio.psk.service.CategoryService
 import java.io.Serializable
-import java.util.*
 
 @NoArgsConstructor
 @Named

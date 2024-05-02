@@ -10,14 +10,16 @@ import me.domantelio.psk.mybatis.mapper.ItemMapper
 import me.domantelio.psk.mybatis.mapper.insert
 import me.domantelio.psk.mybatis.mapper.select
 import me.domantelio.psk.mybatis.model.Item
+import me.domantelio.psk.util.toByteArray
 import java.io.Serializable
 import java.nio.ByteBuffer
 import java.util.*
+import org.slf4j.Logger
 
-@NoArgsConstructor
+ @NoArgsConstructor
 @Named
 @RequestScoped
-open class ItemsMyBatis(
+open class IndexItemFace(
     private var allItems: List<Item> = listOf(),
     private var itemToCreate: Item = Item(),
 ) : Serializable {
@@ -25,6 +27,9 @@ open class ItemsMyBatis(
 
     @Inject @Named("myItemMapper")
     private lateinit var itemMapper: ItemMapper
+
+//    @Inject
+//    private lateinit var logger: Logger
 
     public fun getAllItems(): List<Item> { return allItems }
     public fun setAllItems(items: List<Item>) { this.allItems = items }
@@ -43,12 +48,8 @@ open class ItemsMyBatis(
 
     @Transactional
     open fun createItem(): String {
-        val uuid = UUID.randomUUID()
-        val bb: ByteBuffer = ByteBuffer.wrap(ByteArray(16))
-        bb.putLong(uuid.mostSignificantBits)
-        bb.putLong(uuid.leastSignificantBits)
-
-        itemToCreate.id = bb.array()
+//        logger.debug("")
+        itemToCreate.id = UUID.randomUUID().toByteArray()
         itemMapper.insert(itemToCreate)
         return "/myBatis/items?faces-redirect=true"
     }

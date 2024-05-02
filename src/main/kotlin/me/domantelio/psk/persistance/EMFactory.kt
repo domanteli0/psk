@@ -14,13 +14,13 @@ import jakarta.persistence.SynchronizationType
 open class EMFactory() {
 
     @PersistenceUnit
-    public var emf: EntityManagerFactory? = null
+    private lateinit var emf: EntityManagerFactory
 
     @Produces
     @Default
     @RequestScoped
     private fun createJTAEntityManager(): EntityManager {
-        return emf!!.createEntityManager(SynchronizationType.SYNCHRONIZED)
+        return emf.createEntityManager(SynchronizationType.SYNCHRONIZED)
     }
 
     private fun closeDefaultEntityManager(@Disposes @Default em: EntityManager) {

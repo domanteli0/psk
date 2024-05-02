@@ -1,0 +1,9 @@
+html {
+    margin: 10px 25px 50px 75px;
+}
+
+h1, h2, p, form, table *, input, label {
+    font-size: larger;
+    font: 1.2rem "Fira Sans", sans-serif;
+}
+

@@ -7,6 +7,7 @@ import jakarta.persistence.Id
 import lombok.NoArgsConstructor
 import java.util.*
 
+// TODO: add ref to Invoice
 @NoArgsConstructor
 @Entity
 class Category(

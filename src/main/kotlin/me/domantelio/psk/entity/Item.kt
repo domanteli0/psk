@@ -8,12 +8,12 @@ import java.util.*
 @NamedQueries(
     NamedQuery(name = "Item.findAll", query = "select i from Item as i")
 )
-class Item {
+open class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var id: UUID = UUID.randomUUID()
+    var id: UUID? = UUID.randomUUID()
     var name: String = ""
     var price: Int = 0
-    @Column(name="desc")
+    @Column(name = "desc")
     var description: String = ""
 }

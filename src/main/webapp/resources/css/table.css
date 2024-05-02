@@ -1,0 +1,25 @@
+table {
+    width: 80%; /* Adjust width as needed */
+    /*margin: 20px auto; !* Centering the table *!*/
+    border-collapse: collapse; /* Ensures that border styles do not double up */
+    border-radius: 10px; /* Rounded corners for the outer border */
+    overflow: hidden; /* Ensures the border-radius affects the inner elements */
+}
+
+thead tr {
+    background-color: #656565; /* Light grey background for the header */
+}
+
+th, td {
+    padding: 10px; /* Padding inside cells */
+    text-align: left; /* Align text to the left, adjust as necessary */
+    border-bottom: 1px solid #ddd; /* Light grey line between rows */
+}
+
+thead th {
+    border-bottom: 2px solid #333; /* Thicker, darker line below header */
+}
+
+tbody tr:last-child td {
+    border-bottom: none; /* Remove border from the last row */
+}

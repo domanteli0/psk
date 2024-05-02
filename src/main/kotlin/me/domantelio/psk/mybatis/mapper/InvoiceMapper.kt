@@ -1,15 +1,14 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-04-29T01:39:49.926092+03:00
+ * Generation date: 2024-04-29T01:39:49.932883+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.desc
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.id
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.item
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.price
-import me.domantelio.psk.mybatis.model.Item
+import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.id
+import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.invoice
+import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.name
+import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.price
+import me.domantelio.psk.mybatis.model.Invoice
 import org.apache.ibatis.annotations.InsertProvider
 import org.mybatis.cdi.Mapper
 import org.apache.ibatis.annotations.Options
@@ -37,115 +36,104 @@ import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectOne
 import org.mybatis.dynamic.sql.util.kotlin.mybatis3.update
 import org.mybatis.dynamic.sql.util.mybatis3.CommonCountMapper
 import org.mybatis.dynamic.sql.util.mybatis3.CommonDeleteMapper
-import org.mybatis.dynamic.sql.util.mybatis3.CommonInsertMapper
 import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper
 
 @Mapper
-interface ItemMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
+interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
     @InsertProvider(type=SqlProviderAdapter::class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="row.id")
-    fun insert(insertStatement: InsertStatementProvider<Item>): Int
+    fun insert(insertStatement: InsertStatementProvider<Invoice>): Int
 
     @InsertProvider(type = SqlProviderAdapter::class, method = "insertMultipleWithGeneratedKeys")
     @Options(useGeneratedKeys=true,keyProperty="records.id")
-    fun insertMultiple(@Param("insertStatement") insertStatement: String, @Param("records") records: List<Item>): Int
+    fun insertMultiple(@Param("insertStatement") insertStatement: String, @Param("records") records: List<Invoice>): Int
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
-    @Results(id="ItemResult", value = [
+    @Results(id="InvoiceResult", value = [
         Result(column="ID", property="id", jdbcType=JdbcType.BINARY, id=true),
         Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
-        Result(column="DESC", property="desc", jdbcType=JdbcType.VARCHAR),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR)
     ])
-    fun selectMany(selectStatement: SelectStatementProvider): List<Item>
+    fun selectMany(selectStatement: SelectStatementProvider): List<Invoice>
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
-    @ResultMap("ItemResult")
-    fun selectOne(selectStatement: SelectStatementProvider): Item?
+    @ResultMap("InvoiceResult")
+    fun selectOne(selectStatement: SelectStatementProvider): Invoice?
 }
 
-fun ItemMapper.count(completer: CountCompleter) =
-    countFrom(this::count, item, completer)
+fun InvoiceMapper.count(completer: CountCompleter) =
+    countFrom(this::count, invoice, completer)
 
-fun ItemMapper.delete(completer: DeleteCompleter) =
-    deleteFrom(this::delete, item, completer)
+fun InvoiceMapper.delete(completer: DeleteCompleter) =
+    deleteFrom(this::delete, invoice, completer)
 
-fun ItemMapper.deleteByPrimaryKey(id_: ByteArray) =
+fun InvoiceMapper.deleteByPrimaryKey(id_: ByteArray) =
     delete {
         where { id isEqualTo id_ }
     }
 
-fun ItemMapper.insert(row: Item) =
-    insert(this::insert, row, item) {
-        map(id) toProperty "id"
+fun InvoiceMapper.insert(row: Invoice) =
+    insert(this::insert, row, invoice) {
         map(price) toProperty "price"
-        map(desc) toProperty "desc"
         map(name) toProperty "name"
     }
 
-fun ItemMapper.insertMultiple(records: Collection<Item>) =
-    insertMultipleWithGeneratedKeys(this::insertMultiple, records, item) {
-        map(id) toProperty "id"
+fun InvoiceMapper.insertMultiple(records: Collection<Invoice>) =
+    insertMultipleWithGeneratedKeys(this::insertMultiple, records, invoice) {
         map(price) toProperty "price"
-        map(desc) toProperty "desc"
         map(name) toProperty "name"
     }
 
-fun ItemMapper.insertMultiple(vararg records: Item) =
+fun InvoiceMapper.insertMultiple(vararg records: Invoice) =
     insertMultiple(records.toList())
 
-fun ItemMapper.insertSelective(row: Item) =
-    insert(this::insert, row, item) {
+fun InvoiceMapper.insertSelective(row: Invoice) =
+    insert(this::insert, row, invoice) {
         map(price).toPropertyWhenPresent("price", row::price)
-        map(desc).toPropertyWhenPresent("desc", row::desc)
         map(name).toPropertyWhenPresent("name", row::name)
     }
 
-private val columnList = listOf(id, price, desc, name)
+private val columnList = listOf(id, price, name)
 
-fun ItemMapper.selectOne(completer: SelectCompleter) =
-    selectOne(this::selectOne, columnList, item, completer)
+fun InvoiceMapper.selectOne(completer: SelectCompleter) =
+    selectOne(this::selectOne, columnList, invoice, completer)
 
-fun ItemMapper.select(completer: SelectCompleter) =
-    selectList(this::selectMany, columnList, item, completer)
+fun InvoiceMapper.select(completer: SelectCompleter) =
+    selectList(this::selectMany, columnList, invoice, completer)
 
-fun ItemMapper.selectDistinct(completer: SelectCompleter) =
-    selectDistinct(this::selectMany, columnList, item, completer)
+fun InvoiceMapper.selectDistinct(completer: SelectCompleter) =
+    selectDistinct(this::selectMany, columnList, invoice, completer)
 
-fun ItemMapper.selectByPrimaryKey(id_: ByteArray) =
+fun InvoiceMapper.selectByPrimaryKey(id_: ByteArray) =
     selectOne {
         where { id isEqualTo id_ }
     }
 
-fun ItemMapper.update(completer: UpdateCompleter) =
-    update(this::update, item, completer)
+fun InvoiceMapper.update(completer: UpdateCompleter) =
+    update(this::update, invoice, completer)
 
-fun KotlinUpdateBuilder.updateAllColumns(row: Item) =
+fun KotlinUpdateBuilder.updateAllColumns(row: Invoice) =
     apply {
         set(price) equalToOrNull row::price
-        set(desc) equalToOrNull row::desc
         set(name) equalToOrNull row::name
     }
 
-fun KotlinUpdateBuilder.updateSelectiveColumns(row: Item) =
+fun KotlinUpdateBuilder.updateSelectiveColumns(row: Invoice) =
     apply {
         set(price) equalToWhenPresent row::price
-        set(desc) equalToWhenPresent row::desc
         set(name) equalToWhenPresent row::name
     }
 
-fun ItemMapper.updateByPrimaryKey(row: Item) =
+fun InvoiceMapper.updateByPrimaryKey(row: Invoice) =
     update {
         set(price) equalToOrNull row::price
-        set(desc) equalToOrNull row::desc
         set(name) equalToOrNull row::name
         where { id isEqualTo row.id!! }
     }
 
-fun ItemMapper.updateByPrimaryKeySelective(row: Item) =
+fun InvoiceMapper.updateByPrimaryKeySelective(row: Invoice) =
     update {
         set(price) equalToWhenPresent row::price
-        set(desc) equalToWhenPresent row::desc
         set(name) equalToWhenPresent row::name
         where { id isEqualTo row.id!! }
     }

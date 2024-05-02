@@ -20,10 +20,9 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
-
-    <servlet-mapping>
-        <servlet-name>jakarta.ws.rs.core.Application</servlet-name>
-        <url-pattern>/api/*</url-pattern>
-    </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>jakarta.ws.rs.core.Application</servlet-name>-->
+<!--        <url-pattern>/api/*</url-pattern>-->
+<!--    </servlet-mapping>-->
 
 </web-app>

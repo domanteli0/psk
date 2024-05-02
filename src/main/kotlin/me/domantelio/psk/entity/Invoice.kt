@@ -3,15 +3,21 @@ package me.domantelio.psk.entity
 import jakarta.persistence.*
 import java.util.*
 
+// TODO: date_and_time
 @Entity
-open class Invoice(
+class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var id: UUID = UUID.randomUUID(),
-    var name: String,
-    var price: Int,
-    @OneToMany(cascade = [CascadeType.MERGE])
-    var items: MutableList<Item> = mutableListOf(),
-    @ManyToMany(cascade = [CascadeType.MERGE])
+    var id: UUID? = null
+
+    var name: String = ""
+
+    @Column(name = "price")
+    var total_price: Int = 0
+
+    @OneToMany
+    var items: MutableList<Item> = mutableListOf()
+
+    @ManyToMany
     var categories: MutableSet<Category> = mutableSetOf()
-)
+}
