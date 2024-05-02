@@ -6,9 +6,9 @@ import java.util.*
 @Entity
 @Table(name = "ITEM")
 @NamedQueries(
-    NamedQuery(name = "Item.findAll", query = "select i from Item as i")
+    NamedQuery(name = "Item.selectAll", query = "select i from Item as i")
 )
-open class Item {
+open class Item() {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = UUID.randomUUID()

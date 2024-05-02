@@ -5,7 +5,8 @@ import java.util.*
 
 // TODO: date_and_time
 @Entity
-class Invoice {
+class Invoice() {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = null

@@ -27,14 +27,10 @@
 
     <basicRegistry id="basic">
         <user name="admin" password="password" />
-        <user name="reader" password="readerpwd" />
     </basicRegistry>
     <administrator-role>
         <user>admin</user>
     </administrator-role>
-    <reader-role>
-        <user>reader</user>
-    </reader-role>
     <remoteFileAccess>
         <writeDir>${server.config.dir}</writeDir>
     </remoteFileAccess>
@@ -46,25 +42,27 @@
     <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}"
                   id="defaultHttpEndpoint" host="*"/>
 
-    <application location="psk.war" type="war" context-root="/"></application>
+    <application location="psk.war" type="war" context-root="/"/>
 
     <!-- Derby Library Configuration -->
-    <library id="derbyJDBCLib">
-        <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
+<!--    <library id="derbyJDBCLib">-->
+<!--        <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />-->
+<!--    </library>-->
+
+    <library id="H2JDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
     </library>
 
+    <dataSource id="h2test" jndiName="jdbc/h2test">
+        <jdbcDriver libraryRef="H2JDBCLib"/>
+        <properties URL="jdbc:h2:mem:testdb"/>
+    </dataSource>
+
     <!-- Datasource Configuration -->
-    <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">
-        <jdbcDriver libraryRef="derbyJDBCLib" />
-        <properties.derby.embedded databaseName="EventDB" createDatabase="create" />
-    </dataSource>
-
-    <dataSource id="formybatis" jndiName="jdbc/formybatis">
-        <jdbcDriver libraryRef="derbyJDBCLib"/>
-        <properties>
-
-        </properties>
-    </dataSource>
+<!--    <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">-->
+<!--        <jdbcDriver libraryRef="derbyJDBCLib" />-->
+<!--        <properties.derby.embedded databaseName="EventDB" createDatabase="create" />-->
+<!--    </dataSource>-->
 
 <!--    <library id="HibernateLib">-->
 <!--        <fileset dir="${shared.resource.dir}/jpa30_hibernate" includes="*.jar"/>-->

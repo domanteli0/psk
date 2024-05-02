@@ -5,8 +5,8 @@
 
 <generatorConfiguration>
     <context id="psk-generator" targetRuntime="MyBatis3Kotlin">
-        <jdbcConnection driverClass="org.apache.derby.jdbc.EmbeddedDriver"
-                        connectionURL="jdbc:derby:jpa-unit"
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:mem:testdb"
         >
         </jdbcConnection>
 
