@@ -1,4 +1,4 @@
- package me.domantelio.psk.faces
+package me.domantelio.psk.faces
 
 import jakarta.annotation.PostConstruct
 import jakarta.enterprise.context.RequestScoped
@@ -6,6 +6,7 @@ import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Item
+import me.domantelio.psk.interceptors.LoggedInvocation
 import me.domantelio.psk.service.ItemService
 import java.io.Serializable
 import org.slf4j.Logger
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory
 
 @Named
 @RequestScoped
+@LoggedInvocation
 open class IndexItemFace(
     private var allItems: List<Item> = listOf(),
     private var itemToCreate: Item = Item(),
@@ -22,16 +24,13 @@ open class IndexItemFace(
     @Inject
     private lateinit var service: ItemService
 
-    // @Inject
-    // private lateinit var logger: org.slf4j.Logger
-
     private var logger: Logger = LoggerFactory.getLogger(IndexItemFace::class.java)
 
-    public fun getAllItems(): List<Item> { return allItems }
-    public fun setAllItems(items: List<Item>) { this.allItems = items }
+    open fun getAllItems(): List<Item> { return allItems }
+    open fun setAllItems(items: List<Item>) { this.allItems = items }
 
-    public fun getItemToCreate(): Item { return itemToCreate }
-    public fun setItemToCreate(itemToCreate: Item) { this.itemToCreate = itemToCreate }
+    open fun getItemToCreate(): Item { return itemToCreate }
+    open fun setItemToCreate(itemToCreate: Item) { this.itemToCreate = itemToCreate }
 
     @PostConstruct
     fun init() {
@@ -45,7 +44,6 @@ open class IndexItemFace(
     @Transactional
     open fun createItem(): String {
         logger.info("createdItem: ${itemToCreate}")
-        println("createdItem: $itemToCreate")
 
         service.createItem(itemToCreate)
         return "/myBatis/items?faces-redirect=true"

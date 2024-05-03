@@ -34,7 +34,7 @@
                   id="defaultHttpEndpoint" host="*"/>
 
 <!--    <application location="psk.war" type="war" context-root="/"/>-->
-    <application location="psk.war" contextRoot="/"/>
+    <webApplication location="psk.war" contextRoot="/"/>
 
     <library id="H2JDBCLib">
         <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
