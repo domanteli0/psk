@@ -5,7 +5,6 @@ import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
-import lombok.NoArgsConstructor
 import me.domantelio.psk.mybatis.mapper.ItemMapper
 import me.domantelio.psk.mybatis.mapper.insert
 import me.domantelio.psk.mybatis.mapper.select
@@ -16,7 +15,6 @@ import java.nio.ByteBuffer
 import java.util.*
 import org.slf4j.Logger
 
-@NoArgsConstructor
 @Named
 @RequestScoped
 open class IndexItemFace(

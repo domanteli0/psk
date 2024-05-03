@@ -1,3 +1,8 @@
 target/
 .idea/
 lib/
+.gradle/
+build/
+build.gradle
+settings.gradle
+justfile.gradle

@@ -5,7 +5,6 @@ import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
-import lombok.NoArgsConstructor
 import me.domantelio.psk.entity.Invoice
 import me.domantelio.psk.service.CategoryService
 import me.domantelio.psk.service.InvoiceService
@@ -13,7 +12,6 @@ import java.io.Serializable
 import java.nio.ByteBuffer
 import java.util.*
 
-@NoArgsConstructor
 @Named
 @RequestScoped
 open class IndexInvoiceFace(

@@ -5,12 +5,10 @@ import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
-import lombok.NoArgsConstructor
 import me.domantelio.psk.entity.Category
 import me.domantelio.psk.service.CategoryService
 import java.io.Serializable
 
-@NoArgsConstructor
 @Named
 @RequestScoped
 open class CategoryFace(
