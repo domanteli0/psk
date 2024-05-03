@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Item
 import me.domantelio.psk.service.ItemService
 import java.io.Serializable
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @Named
 @RequestScoped
@@ -20,8 +22,10 @@ open class IndexItemFace(
     @Inject
     private lateinit var service: ItemService
 
-//    @Inject
-//    private lateinit var logger: Logger
+    // @Inject
+    // private lateinit var logger: org.slf4j.Logger
+
+    private var logger: Logger = LoggerFactory.getLogger(IndexItemFace::class.java)
 
     public fun getAllItems(): List<Item> { return allItems }
     public fun setAllItems(items: List<Item>) { this.allItems = items }
@@ -40,6 +44,9 @@ open class IndexItemFace(
 
     @Transactional
     open fun createItem(): String {
+        logger.info("createdItem: ${itemToCreate}")
+        println("createdItem: $itemToCreate")
+
         service.createItem(itemToCreate)
         return "/myBatis/items?faces-redirect=true"
     }

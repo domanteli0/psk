@@ -11,21 +11,21 @@
         <feature>jsonp-2.1</feature>
         <feature>cdi-4.0</feature>
         <feature>persistence-3.1</feature>
-        <feature>adminCenter-1.0</feature>
-        <feature>restConnector-2.0</feature>
-        <feature>mpOpenAPI-3.1</feature>
-        <feature>restfulWS-3.1</feature>
+<!--        <feature>adminCenter-1.0</feature>-->
+<!--        <feature>restConnector-2.0</feature>-->
+<!--        <feature>mpOpenAPI-3.1</feature>-->
+<!--        <feature>restfulWS-3.1</feature>-->
     </featureManager>
 
-    <basicRegistry id="basic">
-        <user name="admin" password="password" />
-    </basicRegistry>
-    <administrator-role>
-        <user>admin</user>
-    </administrator-role>
-    <remoteFileAccess>
-        <writeDir>${server.config.dir}</writeDir>
-    </remoteFileAccess>
+<!--    <basicRegistry id="basic">-->
+<!--        <user name="admin" password="password" />-->
+<!--    </basicRegistry>-->
+<!--    <administrator-role>-->
+<!--        <user>admin</user>-->
+<!--    </administrator-role>-->
+<!--    <remoteFileAccess>-->
+<!--        <writeDir>${server.config.dir}</writeDir>-->
+<!--    </remoteFileAccess>-->
 
     <variable name="http.port" defaultValue="8080"/>
     <variable name="https.port" defaultValue="8081"/>
@@ -34,9 +34,7 @@
                   id="defaultHttpEndpoint" host="*"/>
 
 <!--    <application location="psk.war" type="war" context-root="/"/>-->
-    <webApplication location="psk.war" contextRoot="/">
-        <classloader apiTypeVisibility="+third-party" />
-    </webApplication>
+    <application location="psk.war" contextRoot="/"/>
 
     <library id="H2JDBCLib">
         <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
@@ -46,6 +44,5 @@
         <jdbcDriver libraryRef="H2JDBCLib"/>
         <properties URL="jdbc:h2:~/h2database/psk-db;AUTO_SERVER=TRUE"/>
     </dataSource>
-
 
 </server>

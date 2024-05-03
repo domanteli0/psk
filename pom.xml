@@ -54,7 +54,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
@@ -79,6 +78,20 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
         </dependency>
+
+        <!-- LOGGING -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <!-- LOGGING -->
 
         <!-- MYBATIS -->
         <dependency>
@@ -124,6 +137,11 @@
                             <artifactId>h2</artifactId>
                         </dependency>
 
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-classic</artifactId>
+                        </dependency>
+
                     </copyDependencies>
                 </configuration>
             </plugin>
@@ -143,6 +161,7 @@
                         <artifactId>h2</artifactId>
                         <version>${h2.version}</version>
                     </dependency>
+
                 </dependencies>
 
             </plugin>
