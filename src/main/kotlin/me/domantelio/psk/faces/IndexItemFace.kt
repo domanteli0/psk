@@ -16,7 +16,7 @@ import java.nio.ByteBuffer
 import java.util.*
 import org.slf4j.Logger
 
- @NoArgsConstructor
+@NoArgsConstructor
 @Named
 @RequestScoped
 open class IndexItemFace(
@@ -49,8 +49,8 @@ open class IndexItemFace(
     @Transactional
     open fun createItem(): String {
 //        logger.debug("")
-        itemToCreate.id = UUID.randomUUID().toByteArray()
-        itemMapper.insert(itemToCreate)
+        val toCreate = itemToCreate.copy(id =  UUID.randomUUID().toString())
+        itemMapper.insert(toCreate)
         return "/myBatis/items?faces-redirect=true"
     }
 }

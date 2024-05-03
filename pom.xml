@@ -66,18 +66,6 @@
             <version>${h2.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate.orm</groupId>-->
-<!--            <artifactId>hibernate-core</artifactId>-->
-<!--            <version>${hibernate.version}</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-entitymanager</artifactId>-->
-<!--            <version>5.6.15.Final</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -105,25 +93,6 @@
         </dependency>
         <!-- MYBATIS -->
 
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.17.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyshared</artifactId>
-            <version>10.17.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>10.17.1.0</version>
-        </dependency>
-
-
     </dependencies>
 
     <build>
@@ -148,38 +117,6 @@
                             <artifactId>h2</artifactId>
                         </dependency>
 
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derby</artifactId>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derbyshared</artifactId>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derbytools</artifactId>
-                        </dependency>
-                        <dependencyGroup>
-                            <!-- Relative to server config directory -->
-                            <location>lib/global/db-stuff</location>
-                            <dependency>
-                                <groupId>org.hibernate.orm</groupId>
-                                <artifactId>hibernate-core</artifactId>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.hibernate</groupId>
-                                <artifactId>hibernate-entitymanager</artifactId>
-                            </dependency>
-                        </dependencyGroup>
-<!--                        <dependencyGroup>-->
-<!--                            <location>jdbc</location>-->
-<!--                            <dependency>-->
-<!--                                <groupId>com.ibm.db2</groupId>-->
-<!--                                <artifactId>jcc</artifactId>-->
-<!--                                <version>11.5.9.0</version>-->
-<!--                            </dependency>-->
-<!--                        </dependencyGroup>-->
                     </copyDependencies>
                 </configuration>
             </plugin>
@@ -189,7 +126,6 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.4.2</version>
                 <configuration>
-                    <contexts>EventDB</contexts>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>
@@ -200,29 +136,6 @@
                         <artifactId>h2</artifactId>
                         <version>${h2.version}</version>
                     </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.derby</groupId>
-                        <artifactId>derby</artifactId>
-                        <version>10.17.1.0</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.derby</groupId>
-                        <artifactId>derbyshared</artifactId>
-                        <version>10.17.1.0</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.apache.derby</groupId>
-                        <artifactId>derbytools</artifactId>
-                        <version>10.17.1.0</version>
-                    </dependency>
-<!--                    <dependency>-->
-<!--                        <groupId>com.h2database</groupId>-->
-<!--                        <artifactId>h2</artifactId>-->
-<!--                        <version>${h2.version}</version>-->
-<!--                    </dependency>-->
                 </dependencies>
 
             </plugin>
@@ -233,13 +146,6 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
-<!--                                                            <annotationProcessorPaths>-->
-<!--                                                                <annotationProcessorPath>-->
-<!--                                                                    <groupId>org.projectlombok</groupId>-->
-<!--                                                                    <artifactId>lombok</artifactId>-->
-<!--                                                                    <version>${lombok.version}</version>-->
-<!--                                                                </annotationProcessorPath>-->
-<!--                                                            </annotationProcessorPaths>-->
                 </configuration>
             </plugin>
 

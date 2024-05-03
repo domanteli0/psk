@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-04-29T01:39:49.925213+03:00
+ * Generation date: 2024-05-03T03:11:54.09837+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
@@ -13,19 +13,19 @@ object ItemDynamicSqlSupport {
 
     val id = item.id
 
-    val price = item.price
-
-    val desc = item.desc
+    val descr = item.descr
 
     val name = item.name
 
+    val price = item.price
+
     class Item : AliasableSqlTable<Item>("PUBLIC.ITEM", ::Item) {
-        val id = column<ByteArray>(name = "ID", jdbcType = JDBCType.BINARY)
+        val id = column<String>(name = "ID", jdbcType = JDBCType.VARCHAR)
 
-        val price = column<Int>(name = "PRICE", jdbcType = JDBCType.INTEGER)
-
-        val desc = column<String>(name = "DESC", jdbcType = JDBCType.VARCHAR)
+        val descr = column<String>(name = "DESCR", jdbcType = JDBCType.VARCHAR)
 
         val name = column<String>(name = "NAME", jdbcType = JDBCType.VARCHAR)
+
+        val price = column<Int>(name = "PRICE", jdbcType = JDBCType.INTEGER)
     }
 }

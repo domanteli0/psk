@@ -13,6 +13,7 @@ import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.id
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
 import me.domantelio.psk.mybatis.mapper.ItemMapper
 import me.domantelio.psk.mybatis.mapper.select
+import java.util.UUID
 
 @ApplicationScoped
 @Path("/item")
@@ -23,9 +24,9 @@ class ItemController() {
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun getById(@PathParam("id") itemId: ByteArray?): Response {
+    fun getById(@PathParam("id") itemId: UUID): Response {
         val item = itemMapper.select {
-            where { id.isEqualTo(itemId!!) }
+            where { id.isEqualTo(itemId.toString())}
         }
 
         return Response.ok(item).build()

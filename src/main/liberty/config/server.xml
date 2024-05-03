@@ -1,13 +1,9 @@
 <server description="Sample Liberty server">
 
     <featureManager>
-        <!--        <feature>jpaContainer-2.2</feature>-->
         <feature>webProfile-10.0</feature>
-        <!--        <feature>servlet-6.0</feature>-->
-        <!--        <feature>jsonb-3.0</feature>-->
-        <!--        <feature>faces-4.0</feature>-->
-        <!--        <feature>cdi-4.0</feature>-->
-        <!--        <feature>persistence-3.1</feature>-->
+        <feature>servlet-6.0</feature>
+        <feature>faces-4.0</feature>
         <feature>persistenceContainer-3.1</feature>
         <feature>bells-1.0</feature>
         <feature>restfulWS-3.1</feature>
@@ -16,13 +12,8 @@
         <feature>cdi-4.0</feature>
         <feature>persistence-3.1</feature>
         <feature>adminCenter-1.0</feature>
-        <feature>adminCenter-1.0</feature>
         <feature>restConnector-2.0</feature>
         <feature>mpOpenAPI-3.1</feature>
-        <!--        <feature>jsonb-3.0</feature>-->
-        <!--        <feature>jsonp-2.1</feature>-->
-        <!--        <feature>mpConfig-3.1</feature>-->
-        <!--        <feature>mpRestClient-3.0</feature>-->
     </featureManager>
 
     <basicRegistry id="basic">
@@ -34,7 +25,6 @@
     <remoteFileAccess>
         <writeDir>${server.config.dir}</writeDir>
     </remoteFileAccess>
-<!--    <keyStore id="defaultKeyStore" password="Liberty" />-->
 
     <variable name="http.port" defaultValue="8080"/>
     <variable name="https.port" defaultValue="8081"/>
@@ -44,90 +34,13 @@
 
     <application location="psk.war" type="war" context-root="/"/>
 
-    <!-- Derby Library Configuration -->
-<!--    <library id="derbyJDBCLib">-->
-<!--        <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />-->
-<!--    </library>-->
-
     <library id="H2JDBCLib">
         <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
     </library>
 
-    <dataSource id="h2test" jndiName="jdbc/h2test">
+    <dataSource id="h2db" jndiName="jdbc/psk-ds">
         <jdbcDriver libraryRef="H2JDBCLib"/>
-        <properties URL="jdbc:h2:mem:testdb"/>
+        <properties URL="jdbc:h2:~/h2database/psk-db;AUTO_SERVER=TRUE"/>
     </dataSource>
-
-    <!-- Datasource Configuration -->
-<!--    <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">-->
-<!--        <jdbcDriver libraryRef="derbyJDBCLib" />-->
-<!--        <properties.derby.embedded databaseName="EventDB" createDatabase="create" />-->
-<!--    </dataSource>-->
-
-<!--    <library id="HibernateLib">-->
-<!--        <fileset dir="${shared.resource.dir}/jpa30_hibernate" includes="*.jar"/>-->
-<!--    </library>-->
-
-<!--    <library id="h2Lib">-->
-<!--        <fileset dir="${server.config.dir}/lib/global/db-stuff" includes="h2*.jar"/>-->
-<!--    </library>-->
-<!--    <library id="DbStuff">-->
-<!--        <fileset dir="${server.config.dir}/lib/global/db-stuff" includes="*.jar"/>-->
-<!--    </library>-->
-
-<!--    <bell libraryRef="DbStuff"/>-->
-
-    <!-- Datasource Configuration -->
-    <!-- tag::data-source[] -->
-    <!--    <dataSource id="eventjpadatasource" jndiName="jdbc/eventjpadatasource">-->
-    <!--    <dataSource id="eventjpadatasource" jndiName="h2DataSource">-->
-    <!--        <jdbcDriver>h2</jdbcDriver>-->
-    <!--        <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>-->
-    <!--        <properties/>-->
-    <!--    </dataSource>-->
-
-    <!--    <library id="h2Lib">-->
-    <!--&lt;!&ndash;        <fileset dir="jdbc" includes="h2*.jar"/>&ndash;&gt;-->
-    <!--        <fileset dir="${wlp.install.dir}/lib" includes="h2*.jar"/>-->
-    <!--        <fileset dir="${wlp.install.dir}/lib" includes="h2*.jar"/>-->
-    <!--        <fileset name="${server.config.dir}/hibernate/hibernate-*.jar"/>-->
-    <!--    </library>-->
-    <!--    <dataSource id="jpadatasource" jndiName="jdbc/jpadatasource">-->
-    <!--        <jdbcDriver libraryRef="jdbcLib" />-->
-    <!--        <properties URL="jdbc:h2:~/h2database/h2DB;AUTO_SERVER=TRUE"/>-->
-    <!--    </dataSource>-->
-    <!--    <datasources>-->
-    <!--        <datasource jndi-name="h2DataSource" pool-name="h2DataSource">-->
-    <!--            <driver>h2</driver>-->
-    <!--            <connection-url>jdbc:h2:~/h2database/h2DB;AUTO_SERVER=TRUE</connection-url>-->
-    <!--            <security>-->
-    <!--                <user-name>sa</user-name>-->
-    <!--                <password>sa</password>-->
-    <!--            </security>-->
-    <!--        </datasource>-->
-    <!--    </datasources>-->
-    <!-- end::data-source[] -->
-
-<!--    &lt;!&ndash;            id="h2DataSource"&ndash;&gt;-->
-<!--    &lt;!&ndash;            jndiName="h2DB"&ndash;&gt;-->
-<!--    <dataSource-->
-<!--            id="ExampleDS"-->
-<!--            type="javax.sql.ConnectionPoolDataSource">-->
-<!--        <jdbcDriver-->
-<!--                javax.sql.ConnectionPoolDataSource="org.h2.jdbcx.JdbcDataSource"-->
-<!--                javax.sql.DataSource="org.h2.jdbcx.JdbcDataSource"-->
-<!--                javax.sql.XADataSource="org.h2.jdbcx.JdbcDataSource"-->
-<!--                libraryRef="DbStuff"-->
-<!--        />-->
-<!--        <properties-->
-<!--                URL="jdbc:h2:~/h2database/h2DB;AUTO_SERVER=TRUE"-->
-<!--                databaseName="h2DB"-->
-<!--                user="sa"-->
-<!--                password="sa"/>-->
-<!--    </dataSource>-->
-
-<!--    <library id="SharedLibrary_H2">-->
-<!--        <fileset dir="${shared.resource.dir}/h2" id="Fileset_H2"/>-->
-<!--    </library>-->
 
 </server>

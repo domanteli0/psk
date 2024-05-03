@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-04-29T01:39:49.932168+03:00
+ * Generation date: 2024-05-03T03:11:54.117606+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
@@ -49,7 +49,7 @@ interface CategoryMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMa
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @Results(id="CategoryResult", value = [
-        Result(column="ID", property="id", jdbcType=JdbcType.BINARY, id=true),
+        Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR)
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<Category>
@@ -65,7 +65,7 @@ fun CategoryMapper.count(completer: CountCompleter) =
 fun CategoryMapper.delete(completer: DeleteCompleter) =
     deleteFrom(this::delete, category, completer)
 
-fun CategoryMapper.deleteByPrimaryKey(id_: ByteArray) =
+fun CategoryMapper.deleteByPrimaryKey(id_: String) =
     delete {
         where { id isEqualTo id_ }
     }
@@ -99,7 +99,7 @@ fun CategoryMapper.select(completer: SelectCompleter) =
 fun CategoryMapper.selectDistinct(completer: SelectCompleter) =
     selectDistinct(this::selectMany, columnList, category, completer)
 
-fun CategoryMapper.selectByPrimaryKey(id_: ByteArray) =
+fun CategoryMapper.selectByPrimaryKey(id_: String) =
     selectOne {
         where { id isEqualTo id_ }
     }

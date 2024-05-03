@@ -1,6 +1,6 @@
 # PSK
 
-## Progress
+## TODO/Progress
 
 - [x] 1.  Pademonstruoti darbo su pasirinktais įrankiais (IDE, Application Server, Build tool, Version Control System) minimalų ciklą (**0.15**):
     1.  naudojantis IDE padaryti minimalų pakeitimą projekto išeities tekstuose ir surinkti projektą, (**0.05 balo**)
@@ -29,6 +29,10 @@
         - [ ] 2.  Naudojantis DataMapper/MyBatis (**0.1**)
     - [ ] 4.  Reikia gebėti paaiškinti skirtumus/privalumus/trūkumus tarp ORM ir DataMapper (kada ką geriau naudoti). (**0.1**)
     - [ ] 5.  Būtinos automatinės/deklaratyvios DB transakcijos (rankomis rašyti "begin()/commit()" negalima). (**0.05**)
+
+### Other
+
+- [ ] Use H2 server mode, to allow multiple connections (to use h2console simultaneously)
 
 ## Development
 

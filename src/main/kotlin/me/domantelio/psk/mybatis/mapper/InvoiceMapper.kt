@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-04-29T01:39:49.932883+03:00
+ * Generation date: 2024-05-03T03:11:54.118492+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
@@ -50,9 +50,9 @@ interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMap
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @Results(id="InvoiceResult", value = [
-        Result(column="ID", property="id", jdbcType=JdbcType.BINARY, id=true),
-        Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
-        Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR)
+        Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+        Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
+        Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<Invoice>
 
@@ -67,21 +67,21 @@ fun InvoiceMapper.count(completer: CountCompleter) =
 fun InvoiceMapper.delete(completer: DeleteCompleter) =
     deleteFrom(this::delete, invoice, completer)
 
-fun InvoiceMapper.deleteByPrimaryKey(id_: ByteArray) =
+fun InvoiceMapper.deleteByPrimaryKey(id_: String) =
     delete {
         where { id isEqualTo id_ }
     }
 
 fun InvoiceMapper.insert(row: Invoice) =
     insert(this::insert, row, invoice) {
-        map(price) toProperty "price"
         map(name) toProperty "name"
+        map(price) toProperty "price"
     }
 
 fun InvoiceMapper.insertMultiple(records: Collection<Invoice>) =
     insertMultipleWithGeneratedKeys(this::insertMultiple, records, invoice) {
-        map(price) toProperty "price"
         map(name) toProperty "name"
+        map(price) toProperty "price"
     }
 
 fun InvoiceMapper.insertMultiple(vararg records: Invoice) =
@@ -89,11 +89,11 @@ fun InvoiceMapper.insertMultiple(vararg records: Invoice) =
 
 fun InvoiceMapper.insertSelective(row: Invoice) =
     insert(this::insert, row, invoice) {
-        map(price).toPropertyWhenPresent("price", row::price)
         map(name).toPropertyWhenPresent("name", row::name)
+        map(price).toPropertyWhenPresent("price", row::price)
     }
 
-private val columnList = listOf(id, price, name)
+private val columnList = listOf(id, name, price)
 
 fun InvoiceMapper.selectOne(completer: SelectCompleter) =
     selectOne(this::selectOne, columnList, invoice, completer)
@@ -104,7 +104,7 @@ fun InvoiceMapper.select(completer: SelectCompleter) =
 fun InvoiceMapper.selectDistinct(completer: SelectCompleter) =
     selectDistinct(this::selectMany, columnList, invoice, completer)
 
-fun InvoiceMapper.selectByPrimaryKey(id_: ByteArray) =
+fun InvoiceMapper.selectByPrimaryKey(id_: String) =
     selectOne {
         where { id isEqualTo id_ }
     }
@@ -114,26 +114,26 @@ fun InvoiceMapper.update(completer: UpdateCompleter) =
 
 fun KotlinUpdateBuilder.updateAllColumns(row: Invoice) =
     apply {
-        set(price) equalToOrNull row::price
         set(name) equalToOrNull row::name
+        set(price) equalToOrNull row::price
     }
 
 fun KotlinUpdateBuilder.updateSelectiveColumns(row: Invoice) =
     apply {
-        set(price) equalToWhenPresent row::price
         set(name) equalToWhenPresent row::name
+        set(price) equalToWhenPresent row::price
     }
 
 fun InvoiceMapper.updateByPrimaryKey(row: Invoice) =
     update {
-        set(price) equalToOrNull row::price
         set(name) equalToOrNull row::name
+        set(price) equalToOrNull row::price
         where { id isEqualTo row.id!! }
     }
 
 fun InvoiceMapper.updateByPrimaryKeySelective(row: Invoice) =
     update {
-        set(price) equalToWhenPresent row::price
         set(name) equalToWhenPresent row::name
+        set(price) equalToWhenPresent row::price
         where { id isEqualTo row.id!! }
     }

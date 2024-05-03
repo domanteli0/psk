@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-04-29T01:39:49.932078+03:00
+ * Generation date: 2024-05-03T03:11:54.117467+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
@@ -16,7 +16,7 @@ object CategoryDynamicSqlSupport {
     val name = category.name
 
     class Category : AliasableSqlTable<Category>("PUBLIC.CATEGORY", ::Category) {
-        val id = column<ByteArray>(name = "ID", jdbcType = JDBCType.BINARY)
+        val id = column<String>(name = "ID", jdbcType = JDBCType.VARCHAR)
 
         val name = column<String>(name = "NAME", jdbcType = JDBCType.VARCHAR)
     }
