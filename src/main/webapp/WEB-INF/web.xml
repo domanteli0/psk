@@ -15,14 +15,18 @@
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>
 
+<!--    <servlet>-->
+<!--        <servlet-name>restServlet</servlet-name>-->
+<!--        <servlet-class>me.domantelio.psk.rest.App</servlet-class>-->
+<!--    </servlet>-->
+
     <servlet-mapping>
         <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>jakarta.ws.rs.core.Application</servlet-name>-->
-<!--        <url-pattern>/api/*</url-pattern>-->
-<!--    </servlet-mapping>-->
+<!--        <servlet-mapping>-->
+<!--            <servlet-name>restServlet</servlet-name>-->
+<!--            <url-pattern>/api/*</url-pattern>-->
+<!--        </servlet-mapping>-->
 
 </web-app>

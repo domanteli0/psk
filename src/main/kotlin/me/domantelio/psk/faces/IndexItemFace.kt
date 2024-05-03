@@ -5,15 +5,9 @@ import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
-import me.domantelio.psk.mybatis.mapper.ItemMapper
-import me.domantelio.psk.mybatis.mapper.insert
-import me.domantelio.psk.mybatis.mapper.select
-import me.domantelio.psk.mybatis.model.Item
-import me.domantelio.psk.util.toByteArray
+import me.domantelio.psk.entity.Item
+import me.domantelio.psk.service.ItemService
 import java.io.Serializable
-import java.nio.ByteBuffer
-import java.util.*
-import org.slf4j.Logger
 
 @Named
 @RequestScoped
@@ -23,8 +17,8 @@ open class IndexItemFace(
 ) : Serializable {
     public constructor() : this(listOf(), Item())
 
-    @Inject @Named("myItemMapper")
-    private lateinit var itemMapper: ItemMapper
+    @Inject
+    private lateinit var service: ItemService
 
 //    @Inject
 //    private lateinit var logger: Logger
@@ -41,14 +35,12 @@ open class IndexItemFace(
     }
 
     private fun loadAllItems() {
-        this.allItems = itemMapper.select {}
+        this.allItems = service.findAllItems()
     }
 
     @Transactional
     open fun createItem(): String {
-//        logger.debug("")
-        val toCreate = itemToCreate.copy(id =  UUID.randomUUID().toString())
-        itemMapper.insert(toCreate)
+        service.createItem(itemToCreate)
         return "/myBatis/items?faces-redirect=true"
     }
 }

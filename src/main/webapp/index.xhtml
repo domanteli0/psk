@@ -53,7 +53,7 @@
 <!--            <br/>-->
 <!--            <h:outputText for="description" value="Description: "/>-->
             <h:inputText id="itemDescription"
-                         value="#{indexItemFace.itemToCreate.descr}"
+                         value="#{indexItemFace.itemToCreate.description}"
                          p:placeholder="Description"
                          required="false"/>
 <!--            <br/>-->
@@ -74,7 +74,7 @@
         </h:column>
         <h:column>
             <f:facet name="header">Description</f:facet>
-            #{item.descr}
+            #{item.description}
         </h:column>
     </h:dataTable>
     <!--    <ol>-->
