@@ -8,11 +8,11 @@ import java.util.*
 
 // TODO: add ref to Invoice
 @Entity
-class Category(
+class Category() {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var id: UUID?,
-    var name: String?
-) {
-    constructor() : this(null, null) {}
+    var id: UUID? = null
+
+    var name: String? = null
+        set(value) { field = value?.lowercase(Locale.US) }
 }

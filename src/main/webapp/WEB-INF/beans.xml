@@ -6,6 +6,7 @@
 >
 
     <interceptors>
-        <class>me.domantelio.psk.interceptors.MethodLogger</class>
+        <class>me.domantelio.psk.interceptors.LoggedInvocationImpl</class>
+<!--        <class>me.domantelio.psk.interceptors.LogFacesParametersImpl</class>-->
     </interceptors>
 </beans>

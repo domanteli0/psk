@@ -6,6 +6,7 @@ import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Category
+import me.domantelio.psk.interceptors.LoggedInvocation
 import me.domantelio.psk.service.CategoryService
 import java.io.Serializable
 
@@ -36,8 +37,9 @@ open class CategoryFace(
     }
 
     @Transactional
+    @LoggedInvocation
     open fun createCategory(): String {
         service.createCategory(categoryToCreate)
-        return "/myBatis/categories?faces-redirect=true"
+        return ""
     }
 }

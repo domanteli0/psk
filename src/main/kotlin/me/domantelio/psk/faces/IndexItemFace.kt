@@ -6,7 +6,6 @@ import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Item
-import me.domantelio.psk.interceptors.LoggedInvocation
 import me.domantelio.psk.service.ItemService
 import java.io.Serializable
 import org.slf4j.Logger
@@ -14,7 +13,6 @@ import org.slf4j.LoggerFactory
 
 @Named
 @RequestScoped
-@LoggedInvocation
 open class IndexItemFace(
     private var allItems: List<Item> = listOf(),
     private var itemToCreate: Item = Item(),

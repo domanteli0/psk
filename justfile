@@ -12,7 +12,12 @@ generate ARGS="":
       src/main/kotlin/me/domantelio/psk/mybatis/mapper/*Mapper.kt
 
 open-index:
-    open http://localhost:8080/psk/index.xhtml
+    open http://localhost:8080/index.xhtml
+
+copy-db:
+    CP_POSTFIX=`date +%Y-%m-%d_%H_%M_%S`; \
+    mkdir ~/h2database_$CP_POSTFIX; \
+    cp -r ~/h2database ~/h2database_$CP_POSTFIX
 
 drop-db:
     trash ~/h2database/

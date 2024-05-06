@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:pt="jakarta.faces.passthrough"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:pf="http://primefaces.org/ui"
+>
+<h:head>
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css"></link>
+</h:head>
+<h:body>
+    <h:outputStylesheet library="css" name="darker.css"/>
+    <h:outputStylesheet library="css" name="table.css"/>
+
+    <h:link outcome="index">
+        <h1>Index page</h1>
+    </h:link>
+
+    <h2>Categories</h2>
+    <h:dataTable value="#{categoryFace.allCategories}" var="category">
+        <h:column>
+            <f:facet name="header">Id</f:facet>
+            #{category.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{category.name}
+        </h:column>
+    </h:dataTable>
+
+    <h:form if="categoryForm">
+        <h:outputText for="catName" value="Name: "/>
+        <h:inputText id="catName" value="#{categoryFace.categoryToCreate.name}" required="true"/>
+        <br/>
+        <h:commandButton
+                value="Create new category"
+                f:actionListener="#{categoryFace.createCategory}"/>
+    </h:form>
+
+
+    <h2>Items</h2>
+
+    <h:form if="itemForm">
+        <h:panelGrid columns="8">
+            <h:inputText id="itemName"
+                         value="#{indexItemFace.itemToCreate.name}"
+                         pt:placeholder="Name"
+                         required="true"/>
+            <h:inputText id="itemPrice"
+                         value="#{indexItemFace.itemToCreate.price}"
+                         required="true"
+                         pt:type="number" pt:placeholder="Price"/>
+            <!--            <br/>-->
+            <!--            <h:outputText for="description" value="Description: "/>-->
+            <h:inputText id="itemDescription"
+                         value="#{indexItemFace.itemToCreate.description}"
+                         pt:placeholder="Description"
+                         required="false"/>
+            <!--            <br/>-->
+            <h:commandButton
+                    value="Add new item"
+                    f:actionListener="#{indexItemFace.createItem}"/>
+        </h:panelGrid>
+        <!--                action="index?faces-redirect=true"/>-->
+    </h:form>
+    <h:dataTable value="#{indexItemFace.allItems}" var="item">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{item.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Price</f:facet>
+            #{item.price}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Description</f:facet>
+            #{item.description}
+        </h:column>
+    </h:dataTable>
+
+</h:body>
+</html>

@@ -1,6 +1,8 @@
 package me.domantelio.psk.entity
 
 import jakarta.persistence.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Entity
@@ -12,8 +14,11 @@ open class Item() {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = UUID.randomUUID()
-    var name: String = ""
-    var price: Int = 0
-    @Column(name = "descr")
-    var description: String = ""
+
+    var name: String? = null
+
+    var price: Int? = null
+
+    @Column(name = "desc")
+    var description: String? = null
 }
