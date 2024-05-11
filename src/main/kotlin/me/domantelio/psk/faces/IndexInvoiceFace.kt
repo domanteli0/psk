@@ -4,19 +4,14 @@ import jakarta.annotation.PostConstruct
 import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
-import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityManagerFactory
-import jakarta.persistence.PersistenceContext
 import jakarta.persistence.PersistenceUnit
 import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Invoice
-import me.domantelio.psk.service.CategoryService
-import me.domantelio.psk.service.InvoiceService
+import me.domantelio.psk.repositoy.InvoiceRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.Serializable
-import java.nio.ByteBuffer
-import java.util.*
 
 @Named
 @RequestScoped
@@ -29,7 +24,7 @@ open class IndexInvoiceFace(
     private val logger: Logger = LoggerFactory.getLogger(IndexInvoiceFace::class.java)
 
     @Inject
-    private lateinit var service: InvoiceService
+    private lateinit var service: InvoiceRepository
 
     @PersistenceUnit
     private lateinit var emf: EntityManagerFactory

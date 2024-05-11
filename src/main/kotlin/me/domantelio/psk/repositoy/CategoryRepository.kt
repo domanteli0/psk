@@ -1,18 +1,16 @@
-package me.domantelio.psk.service
+package me.domantelio.psk.repositoy
 
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.enterprise.inject.Model
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import jakarta.persistence.Query
 import jakarta.transaction.Transactional
-import jakarta.ws.rs.WebApplicationException
 import me.domantelio.psk.entity.Category
 import java.util.*
 import java.util.logging.Logger
 
 @ApplicationScoped
-open class CategoryService() {
+open class CategoryRepository() {
     @PersistenceContext
     private lateinit var em: EntityManager
 
@@ -30,15 +28,23 @@ open class CategoryService() {
 
     @Transactional
     open fun deleteCategory(categoryId: UUID) {
-        val c: Category = findCategoryById(categoryId)
+        val c: Category = findCategoryById(categoryId) ?: run {
+            LOGGER.warning("No Category to delete with id [$categoryId]")
+            return
+        }
         em.remove(c)
         LOGGER.info("Deleted Category with id [$categoryId]")
     }
 
-    fun findCategoryById(id: UUID): Category {
-        val category: Category = em.find(Category::class.java, id)
-            ?: throw WebApplicationException("Category with id of $id does not exist.", 404)
+    fun findCategoryById(id: UUID): Category? {
+        val category: Category? = em.find(Category::class.java, id)
         return category
+    }
+
+    fun findCategoryByName(name: String): Category? {
+        return em.createNamedQuery("Category.findByName")
+            .setParameter("name", name)
+            .singleResult as Category?;
     }
 
     fun findAllCategories(): List<Category> {
@@ -46,14 +52,7 @@ open class CategoryService() {
         return query.resultList as MutableList<Category>
     }
 
-    fun findCategoryByName(name: String): Category {
-        val query: Query = em
-            .createQuery("SELECT c FROM Category as c WHERE c.name = :name")
-        query.setParameter("name", name)
-        return query.singleResult as Category
-    }
-
     companion object {
-        private val LOGGER: Logger = Logger.getLogger(CategoryService::class.java.name)
+        private val LOGGER: Logger = Logger.getLogger(CategoryRepository::class.java.name)
     }
 }

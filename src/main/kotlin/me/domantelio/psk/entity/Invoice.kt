@@ -14,20 +14,19 @@ class Invoice() {
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = null
 
-    var name: String? = null
-        get() = purchaseDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-        set(value) {
-            field = value
-        }
-
     @Column(columnDefinition = "TIMESTAMP", name = "date_time")
     var purchaseDateTime: LocalDateTime = LocalDateTime.now()
 
-    @OneToMany
+    @Column(nullable = false)
+    var name: String = purchaseDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+
+    @OneToMany(cascade = [CascadeType.ALL])
     var items: MutableList<Item> = mutableListOf()
 
-    @ManyToMany
+    // @ManyToMany(cascade = [(CascadeType.REMOVE)])
+    @ManyToMany(cascade = [CascadeType.PERSIST])
     var categories: MutableSet<Category> = mutableSetOf()
+
 
     @LoggedInvocation
     fun getTotalPrice(): Int {
@@ -41,5 +40,4 @@ class Invoice() {
             .map { it.price!! }
             .fold(0, Int::plus)
     }
-
 }

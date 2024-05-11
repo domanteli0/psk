@@ -10,7 +10,7 @@
     - [x] 1.  Sukurti duomenų bazę. Turi būti naudojami one-to-many ir many-to-many ryšiai. (**0.05 balo)**
     - [ ] 2.  Sugeneruotoms/parašytoms JPA esybėms gebėti parodyti ir paaiškinti, (**0.1 balo**)
         - [ ] kaip esybių laukai (Java klasių laukai) atitinka DB lentelių stulpelius;
-        - [ ] ką daryti, jei norime lauką pavadinti kitaip nei pavadintas atitinkamas stulpelis.
+        - [ ] ką daryti, jei norime lauką pavadinti kitaip nei pavadintas atitinkamas stulpelis._
         - [ ] Gebėti parodyti ir paaiškinti, kur esybėse yra one-to-many bei many-to-many ryšiai ir kaip jie atitinka DB lenteles.
     - [ ] 3.  Tą patį gebėti paaiškinti MyBatis esybėms (**0.1**), .i.e:
         - [ ] kaip esybių laukai (Java klasių laukai) atitinka DB lentelių stulpelius;
@@ -32,7 +32,7 @@
 
 ### Other
 
-- [ ] Use H2 server mode, to allow multiple connections (to use h2console simultaneously)
+- [X] Use H2 server mode, to allow multiple connections (to use h2console simultaneously)
 
 ## Development
 

@@ -6,7 +6,7 @@ import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Item
-import me.domantelio.psk.service.ItemService
+import me.domantelio.psk.repositoy.ItemRepository
 import java.io.Serializable
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -20,7 +20,7 @@ open class IndexItemFace(
     public constructor() : this(listOf(), Item())
 
     @Inject
-    private lateinit var service: ItemService
+    private lateinit var service: ItemRepository
 
     private var logger: Logger = LoggerFactory.getLogger(IndexItemFace::class.java)
 

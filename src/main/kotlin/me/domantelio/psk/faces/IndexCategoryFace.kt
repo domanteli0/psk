@@ -7,7 +7,7 @@ import jakarta.inject.Named
 import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Category
 import me.domantelio.psk.interceptors.LoggedInvocation
-import me.domantelio.psk.service.CategoryService
+import me.domantelio.psk.repositoy.CategoryRepository
 import java.io.Serializable
 
 @Named
@@ -19,7 +19,7 @@ open class CategoryFace(
     public constructor() : this(listOf(), Category())
 
     @Inject
-    private lateinit var service: CategoryService
+    private lateinit var service: CategoryRepository
 
     public fun getAllCategories(): List<Category> { return allCategories }
     public fun setAllCategories(categories: List<Category>) { this.allCategories = categories }

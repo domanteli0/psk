@@ -30,6 +30,27 @@
         <h2.version>2.2.224</h2.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.8.0.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.10.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!-- JAKARTA -->
         <dependency>
@@ -120,6 +141,46 @@
         </dependency>
         <!-- MYBATIS -->
 
+        <!-- TEST -->
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.70.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-weld-embedded</artifactId>
+            <version>4.0.0.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- TEST -->
+
     </dependencies>
 
     <build>
@@ -207,13 +268,13 @@
                             </sourceDirs>
                         </configuration>
                     </execution>
-                    <!--                    <execution>-->
-                    <!--                        <id>test-compile</id>-->
-                    <!--                        <phase>test-compile</phase>-->
-                    <!--                        <goals>-->
-                    <!--                            <goal>test-compile</goal>-->
-                    <!--                        </goals>-->
-                    <!--                    </execution>-->
+                        <execution>
+                            <id>test-compile</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>test-compile</goal>
+                            </goals>
+                        </execution>
                 </executions>
 
                 <dependencies>
@@ -244,6 +305,24 @@
                         <option>jpa:annotation=jakarta.ws.rs.Path</option>
                         <option>jpa:annotation=jakarta.enterprise.context.ApplicationScoped</option>
                     </pluginOptions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <dependencies>
+
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.10.2</version>
+                    </dependency>
+
+                </dependencies>
+                <configuration>
+                    <test>me.domantelio.psk.test.IT</test>
                 </configuration>
             </plugin>
 

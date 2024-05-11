@@ -1,7 +1,6 @@
-package me.domantelio.psk.service
+package me.domantelio.psk.repositoy
 
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.enterprise.inject.Model
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import jakarta.persistence.Query
@@ -12,7 +11,7 @@ import java.util.*
 import java.util.logging.Logger
 
 @ApplicationScoped
-open class InvoiceService() {
+open class InvoiceRepository() {
     @PersistenceContext
     private lateinit var em: EntityManager
 
@@ -54,6 +53,6 @@ open class InvoiceService() {
     }
 
     companion object {
-        private val LOGGER: Logger = Logger.getLogger(InvoiceService::class.java.name)
+        private val LOGGER: Logger = Logger.getLogger(InvoiceRepository::class.java.name)
     }
 }
