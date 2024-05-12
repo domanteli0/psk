@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional
 import me.domantelio.psk.entity.Category
 import me.domantelio.psk.interceptors.LoggedInvocation
 import me.domantelio.psk.repositoy.CategoryRepository
+import me.domantelio.psk.service.ColorService
 import java.io.Serializable
 
 @Named
@@ -17,6 +18,9 @@ open class CategoryFace(
      private var categoryToCreate: Category = Category(),
 ) : Serializable {
     public constructor() : this(listOf(), Category())
+
+    @Inject
+    private lateinit var colors: ColorService
 
     @Inject
     private lateinit var service: CategoryRepository
@@ -41,5 +45,9 @@ open class CategoryFace(
     open fun createCategory(): String {
         service.createCategory(categoryToCreate)
         return ""
+    }
+
+    fun colorOfCategory(category: Category): String {
+        return colors.fromHashCode(category)
     }
 }

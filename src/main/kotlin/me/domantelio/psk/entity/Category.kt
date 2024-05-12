@@ -4,7 +4,6 @@ import jakarta.persistence.*
 import me.domantelio.psk.mybatis.model.Category
 import java.util.*
 
-// TODO: add ref to Invoice
 @Entity
 @Table(
     indexes = [Index(name = "unique_names",  columnList = "name", unique = true)]
