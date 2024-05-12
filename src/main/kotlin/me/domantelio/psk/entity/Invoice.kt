@@ -21,6 +21,7 @@ class Invoice() {
     var name: String = purchaseDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
 
     @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name="INVOICE_ID")
     var items: MutableList<Item> = mutableListOf()
 
     // @ManyToMany(cascade = [(CascadeType.REMOVE)])
