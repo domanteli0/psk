@@ -9,6 +9,7 @@ import me.domantelio.psk.entity.Category
 import me.domantelio.psk.interceptors.LoggedInvocation
 import me.domantelio.psk.repositoy.CategoryRepository
 import me.domantelio.psk.service.ColorService
+import org.slf4j.LoggerFactory
 import java.io.Serializable
 
 @Named
@@ -24,6 +25,8 @@ open class CategoryFace(
 
     @Inject
     private lateinit var service: CategoryRepository
+
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     public fun getAllCategories(): List<Category> { return allCategories }
     public fun setAllCategories(categories: List<Category>) { this.allCategories = categories }
@@ -47,7 +50,9 @@ open class CategoryFace(
         return ""
     }
 
-    fun colorOfCategory(category: Category): String {
+    @LoggedInvocation
+    open fun colorOfCategory(category: Category): String {
+        logger.debug("Category hash: ${category.hashCode()}")
         return colors.fromHashCode(category)
     }
 }

@@ -10,8 +10,9 @@ import kotlin.random.Random
 class ColorService() : Serializable {
     fun fromHashCode(obj: Any): String {
         with(Static) {
-            val index: Int = obj.hashCode() % COLORS.size
-            return COLORS[index]
+            val hash: UInt = shiftToUInt(obj.hashCode())
+            val index = hash % (COLORS.size.toUInt())
+            return COLORS[index.toInt()]
         }
     }
 
@@ -23,6 +24,14 @@ class ColorService() : Serializable {
             "#c8d891",
             "#f7ca6f",
         )
+
+        fun shiftToUInt(i: Int): UInt {
+            return if (i < 0) {
+                (i + (Int.MAX_VALUE + 1)).toUInt()
+            } else {
+                (i.toUInt() + (UInt.MAX_VALUE.shr(1))) + 1u
+            }
+        }
     }
 }
 

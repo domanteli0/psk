@@ -22,4 +22,22 @@ class Category() {
     @Column(nullable = false, unique = true)
     var name: String? = null
         set(value) { field = value?.lowercase(Locale.US) }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as me.domantelio.psk.entity.Category
+
+        if (id != other.id) return false
+        if (name != other.name) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (name?.hashCode() ?: 0)
+        return result
+    }
 }
