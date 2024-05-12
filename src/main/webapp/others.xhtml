@@ -18,7 +18,7 @@
     </h:link>
 
     <h2>Categories</h2>
-    <h:dataTable value="#{categoryFace.allCategories}" var="category">
+    <h:dataTable id="category-table" value="#{categoryFace.allCategories}" var="category">
         <h:column>
             <f:facet name="header">Id</f:facet>
             #{category.id}
@@ -45,7 +45,7 @@
 
     <h2>Items</h2>
 
-    <h:form if="itemForm">
+    <h:form id="itemForm">
         <h:panelGrid columns="8">
             <h:inputText id="itemName"
                          value="#{indexItemFace.itemToCreate.name}"
@@ -68,7 +68,7 @@
         </h:panelGrid>
         <!--                action="index?faces-redirect=true"/>-->
     </h:form>
-    <h:dataTable value="#{indexItemFace.allItems}" var="item">
+    <h:dataTable id="item-table" value="#{indexItemFace.allItems}" var="item">
         <h:column>
             <f:facet name="header">Name</f:facet>
             #{item.name}
