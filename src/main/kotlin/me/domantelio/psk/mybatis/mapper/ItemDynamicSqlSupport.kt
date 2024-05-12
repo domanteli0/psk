@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-05-03T03:11:54.09837+03:00
+ * Generation date: 2024-05-12T19:56:53.484952+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
@@ -13,7 +13,7 @@ object ItemDynamicSqlSupport {
 
     val id = item.id
 
-    val descr = item.descr
+    val desc = item.desc
 
     val name = item.name
 
@@ -22,7 +22,7 @@ object ItemDynamicSqlSupport {
     class Item : AliasableSqlTable<Item>("PUBLIC.ITEM", ::Item) {
         val id = column<String>(name = "ID", jdbcType = JDBCType.VARCHAR)
 
-        val descr = column<String>(name = "DESCR", jdbcType = JDBCType.VARCHAR)
+        val desc = column<String>(name = "DESC", jdbcType = JDBCType.VARCHAR)
 
         val name = column<String>(name = "NAME", jdbcType = JDBCType.VARCHAR)
 

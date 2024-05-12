@@ -1,10 +1,10 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-05-03T03:11:54.104772+03:00
+ * Generation date: 2024-05-12T19:56:53.485652+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.descr
+import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.desc
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.id
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.item
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
@@ -52,7 +52,7 @@ interface ItemMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @Results(id="ItemResult", value = [
         Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
-        Result(column="DESCR", property="descr", jdbcType=JdbcType.VARCHAR),
+        Result(column="DESC", property="desc", jdbcType=JdbcType.VARCHAR),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
         Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
     ])
@@ -76,14 +76,14 @@ fun ItemMapper.deleteByPrimaryKey(id_: String) =
 
 fun ItemMapper.insert(row: Item) =
     insert(this::insert, row, item) {
-        map(descr) toProperty "descr"
+        map(desc) toProperty "desc"
         map(name) toProperty "name"
         map(price) toProperty "price"
     }
 
 fun ItemMapper.insertMultiple(records: Collection<Item>) =
     insertMultipleWithGeneratedKeys(this::insertMultiple, records, item) {
-        map(descr) toProperty "descr"
+        map(desc) toProperty "desc"
         map(name) toProperty "name"
         map(price) toProperty "price"
     }
@@ -93,12 +93,12 @@ fun ItemMapper.insertMultiple(vararg records: Item) =
 
 fun ItemMapper.insertSelective(row: Item) =
     insert(this::insert, row, item) {
-        map(descr).toPropertyWhenPresent("descr", row::descr)
+        map(desc).toPropertyWhenPresent("desc", row::desc)
         map(name).toPropertyWhenPresent("name", row::name)
         map(price).toPropertyWhenPresent("price", row::price)
     }
 
-private val columnList = listOf(id, descr, name, price)
+private val columnList = listOf(id, desc, name, price)
 
 fun ItemMapper.selectOne(completer: SelectCompleter) =
     selectOne(this::selectOne, columnList, item, completer)
@@ -119,21 +119,21 @@ fun ItemMapper.update(completer: UpdateCompleter) =
 
 fun KotlinUpdateBuilder.updateAllColumns(row: Item) =
     apply {
-        set(descr) equalToOrNull row::descr
+        set(desc) equalToOrNull row::desc
         set(name) equalToOrNull row::name
         set(price) equalToOrNull row::price
     }
 
 fun KotlinUpdateBuilder.updateSelectiveColumns(row: Item) =
     apply {
-        set(descr) equalToWhenPresent row::descr
+        set(desc) equalToWhenPresent row::desc
         set(name) equalToWhenPresent row::name
         set(price) equalToWhenPresent row::price
     }
 
 fun ItemMapper.updateByPrimaryKey(row: Item) =
     update {
-        set(descr) equalToOrNull row::descr
+        set(desc) equalToOrNull row::desc
         set(name) equalToOrNull row::name
         set(price) equalToOrNull row::price
         where { id isEqualTo row.id!! }
@@ -141,7 +141,7 @@ fun ItemMapper.updateByPrimaryKey(row: Item) =
 
 fun ItemMapper.updateByPrimaryKeySelective(row: Item) =
     update {
-        set(descr) equalToWhenPresent row::descr
+        set(desc) equalToWhenPresent row::desc
         set(name) equalToWhenPresent row::name
         set(price) equalToWhenPresent row::price
         where { id isEqualTo row.id!! }

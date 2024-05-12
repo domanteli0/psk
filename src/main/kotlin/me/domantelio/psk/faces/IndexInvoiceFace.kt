@@ -7,7 +7,7 @@ import jakarta.inject.Named
 import jakarta.persistence.EntityManagerFactory
 import jakarta.persistence.PersistenceUnit
 import jakarta.transaction.Transactional
-import me.domantelio.psk.entity.Invoice
+import me.domantelio.psk.mybatis.model.*
 import me.domantelio.psk.repositoy.InvoiceRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -6,13 +6,10 @@ import jakarta.faces.context.FacesContext
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
-import me.domantelio.psk.entity.Category
-import me.domantelio.psk.entity.Invoice
-import me.domantelio.psk.entity.Item
+import me.domantelio.psk.mybatis.model.*
 import me.domantelio.psk.repositoy.CategoryRepository
 import me.domantelio.psk.repositoy.InvoiceRepository
 import me.domantelio.psk.repositoy.ItemRepository
-import me.domantelio.psk.service.ColorService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.Serializable
@@ -51,7 +48,7 @@ open class InvoiceFace(
 
         val invoiceId = requestParameters["invoiceId"]
         val invoiceUUID = UUID.fromString(invoiceId)
-        thisInvoice =  invoiceRepository.findInvoiceById(invoiceUUID)
+        thisInvoice = invoiceRepository.findInvoiceById(invoiceUUID)
 
         selected = thisInvoice.categories
             .filter { it.name != null }

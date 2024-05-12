@@ -1,58 +1,58 @@
 package me.domantelio.psk.repositoy
 
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.persistence.EntityManager
-import jakarta.persistence.PersistenceContext
-import jakarta.persistence.Query
+import jakarta.inject.Inject
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.WebApplicationException
-import me.domantelio.psk.entity.Invoice
+import me.domantelio.psk.mybatis.mapper.*
+import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.id
+import me.domantelio.psk.mybatis.model.Invoice
+import org.slf4j.*
 import java.util.*
-import java.util.logging.Logger
 
 @ApplicationScoped
 open class InvoiceRepository() {
-    @PersistenceContext
-    private lateinit var em: EntityManager
+
+    private val logger: Logger = LoggerFactory.getLogger(javaClass.name)
+
+    @Inject
+    private lateinit var mapper: InvoiceMapper
 
     @Transactional
     open fun createInvoice(invoice: Invoice) {
-        em.persist(invoice)
-        LOGGER.info("Created Invoice $invoice")
+        mapper.insert(invoice)
+        logger.info("Created Invoice $invoice")
     }
 
-    @Transactional
     open fun updateInvoice(invoice: Invoice) {
-        em.merge(invoice)
-        LOGGER.info("Updated invoice$invoice")
+        mapper.updateByPrimaryKey(invoice)
+        logger.info("Updated Invoice $invoice")
     }
 
     @Transactional
     open fun deleteInvoice(invoiceId: UUID) {
-        val c: Invoice = findInvoiceById(invoiceId)
-        em.remove(c)
-        LOGGER.info("Deleted Invoice with id$invoiceId")
+        mapper.delete { where { id.isEqualTo(invoiceId.toString()) } }.let {
+            if (it == 1) {
+                logger.debug("Deleted Invoice with id [$invoiceId]")
+            } else {
+                logger.debug("No Invoice to delete with id [$invoiceId]")
+            }
+        }
     }
 
-    fun findInvoiceById(id: UUID): Invoice {
-        val invoice: Invoice = em.find(Invoice::class.java, id)
-            ?: throw WebApplicationException("Invoice with id of $id does not exist.", 404)
-        return invoice
+    fun findInvoiceById(id_: UUID): Invoice? {
+        return mapper.selectByPrimaryKey(id_.toString())
     }
 
     fun findAllInvoices(): List<Invoice> {
-        val query: Query = em.createQuery("SELECT i FROM Invoice i")
-        return query.resultList as MutableList<Invoice>
+        return mapper.select {
+            allRows()
+        }
     }
 
-    fun findInvoiceByName(name: String): Invoice {
-        val query: Query = em
-            .createQuery("SELECT i FROM Invoice i WHERE i.name = :name")
-        query.setParameter("name", name)
-        return query.singleResult as Invoice
-    }
-
-    companion object {
-        private val LOGGER: Logger = Logger.getLogger(InvoiceRepository::class.java.name)
+    fun findInvoiceByName(name_: String): Invoice? {
+        return mapper.selectOne {
+            where { InvoiceDynamicSqlSupport.name.isEqualTo(name_) }
+        }
     }
 }

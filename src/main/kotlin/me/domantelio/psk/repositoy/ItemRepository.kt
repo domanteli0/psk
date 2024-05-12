@@ -1,58 +1,53 @@
 package me.domantelio.psk.repositoy
 
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.persistence.EntityManager
-import jakarta.persistence.PersistenceContext
+import jakarta.inject.Inject
 import jakarta.persistence.Query
 import jakarta.transaction.Transactional
 import jakarta.ws.rs.WebApplicationException
-import me.domantelio.psk.entity.Item
+import me.domantelio.psk.mybatis.mapper.*
+import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
+import me.domantelio.psk.mybatis.model.Item
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.*
-import java.util.logging.Logger
 
 @ApplicationScoped
 open class ItemRepository() {
-    @PersistenceContext
-    private lateinit var em: EntityManager
+    private val logger: Logger = LoggerFactory.getLogger(javaClass)
+
+    @Inject
+    private lateinit var mapper: ItemMapper
 
     @Transactional
     open fun createItem(item: Item) {
-        em.persist(item)
-        LOGGER.info("Created Item $item")
+        mapper.insert(item)
+        logger.info("Created Item $item")
     }
 
     @Transactional
     open fun updateItem(item: Item) {
-        em.merge(item)
-        LOGGER.info("Updated item$item")
+        mapper.updateByPrimaryKey(item)
+        logger.info("Updated item$item")
     }
 
     @Transactional
     open fun deleteItem(itemId: UUID) {
-        val c: Item = findItemById(itemId)
-        em.remove(c)
-        LOGGER.info("Deleted Item with id$itemId")
+        mapper.deleteByPrimaryKey(itemId.toString())
+        logger.info("Deleted Item with id$itemId")
     }
 
-    fun findItemById(id: UUID): Item {
-        val item: Item = em.find(Item::class.java, id)
-            ?: throw WebApplicationException("Item with id of $id does not exist.", 404)
-        return item
+    fun findItemById(id: UUID): Item? {
+        return mapper.selectByPrimaryKey(id.toString())
     }
 
     fun findAllItems(): List<Item> {
-        val query: Query = em.createQuery("SELECT c FROM Item c")
-        return query.resultList as MutableList<Item>
+        return mapper.select { allRows() }
     }
 
-    fun findItemByName(name: String): Item {
-        val query: Query = em
-            .createQuery("SELECT c FROM Item c WHERE c.name = :name")
-        query.setParameter("name", name)
-        return query.singleResult as Item
-    }
-
-    companion object {
-        private val LOGGER: Logger = Logger.getLogger(ItemRepository::class.java.name)
+    fun findItemByName(name_: String): List<Item> {
+        return mapper.select {
+            where { name.isEqualTo(name_) }
+        }
     }
 }

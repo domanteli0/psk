@@ -5,7 +5,7 @@ import jakarta.enterprise.context.RequestScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
-import me.domantelio.psk.entity.Item
+import me.domantelio.psk.mybatis.model.*
 import me.domantelio.psk.repositoy.ItemRepository
 import java.io.Serializable
 import org.slf4j.Logger

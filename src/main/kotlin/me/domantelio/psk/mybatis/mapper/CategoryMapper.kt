@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-05-03T03:11:54.117606+03:00
+ * Generation date: 2024-05-12T19:56:53.491454+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
