@@ -28,7 +28,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <h2.version>2.2.224</h2.version>
-        <arquillian.war.name>arquillian-managed</arquillian.war.name>
+<!--        <arquillian.war.name>arquillian-managed</arquillian.war.name>-->
     </properties>
 
     <dependencyManagement>
@@ -144,31 +144,31 @@
 
         <!-- TEST -->
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-            <version>2.70.0</version>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>7.3.1</version>
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.jboss.arquillian.junit5</groupId>
-            <artifactId>arquillian-junit5-container</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--        <dependency>-->
+<!--            <groupId>org.jboss.arquillian.junit5</groupId>-->
+<!--            <artifactId>arquillian-junit5-container</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.jboss.arquillian.protocol</groupId>
-            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.jboss.arquillian.protocol</groupId>-->
+<!--            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>io.openliberty.arquillian</groupId>
-            <artifactId>arquillian-liberty-managed-jakarta-junit</artifactId>
-            <version>2.1.4</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.openliberty.arquillian</groupId>-->
+<!--            <artifactId>arquillian-liberty-managed-jakarta-junit</artifactId>-->
+<!--            <version>2.1.4</version>-->
+<!--            <type>pom</type>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.jboss.shrinkwrap</groupId>
@@ -226,12 +226,12 @@
                         </dependency>
 
                     </copyDependencies>
-                    <arquillianProperties>
-                        <javaVmArguments>
-                            -Dsystem.context.root=/${arquillian.war.name}
-                        </javaVmArguments>
-                        <allowConnectingToRunningServer>true</allowConnectingToRunningServer>
-                    </arquillianProperties>
+<!--                    <arquillianProperties>-->
+<!--                        <javaVmArguments>-->
+<!--                            -Dsystem.context.root=/${arquillian.war.name}-->
+<!--                        </javaVmArguments>-->
+<!--                        <allowConnectingToRunningServer>true</allowConnectingToRunningServer>-->
+<!--                    </arquillianProperties>-->
                 </configuration>
             </plugin>
 
@@ -333,10 +333,31 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.2.5</version>
+<!--                <configuration>-->
+<!--                    <systemPropertyVariables>-->
+<!--                        <arquillian.war.name>${arquillian.war.name}.war</arquillian.war.name>-->
+<!--                    </systemPropertyVariables>-->
+<!--                </configuration>-->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <dependencies>
+
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.10.2</version>
+                    </dependency>
+
+                </dependencies>
                 <configuration>
-                    <systemPropertyVariables>
-                        <arquillian.war.name>${arquillian.war.name}.war</arquillian.war.name>
-                    </systemPropertyVariables>
+                    <goal>
+                        test
+                    </goal>
+<!--                    <test>it.me.domantelio.psk.IT</test>-->
                 </configuration>
             </plugin>
 

@@ -33,9 +33,15 @@ console:
 package: clean
     mvn package
 
-config-arq: package
-    mvn liberty:create liberty:install-feature
-    mvn liberty:configure-arquillian
+it-tests: package
+    mvn liberty:deploy
+    mvn liberty:start
+    -mvn test
+    mvn liberty:stop
 
-it-tests: config-arq
-    mvn failsafe:integration-test
+#deploy: clean
+start:
+    mvn liberty:start
+
+stop:
+    mvn liberty:stop

@@ -15,13 +15,14 @@
 
     <h2>Invoices</h2>
 
-    <h:form if="invoiceForm">
+    <h:form id="invoiceForm">
         <h:panelGrid columns="2">
             <h:inputText id="name"
                          value="#{indexInvoiceFace.invoiceToCreate.name}"
                          pt:placeholder="Name"
                          required="true"/>
             <h:commandButton
+                    id="submitInvoice"
                     value="Create new invoice"
                     action="#{indexInvoiceFace.createInvoice}">
             </h:commandButton>
