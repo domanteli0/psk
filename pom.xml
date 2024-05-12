@@ -28,6 +28,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <h2.version>2.2.224</h2.version>
+        <arquillian.war.name>arquillian-managed</arquillian.war.name>
     </properties>
 
     <dependencyManagement>
@@ -162,6 +163,20 @@
         </dependency>
 
         <dependency>
+            <groupId>io.openliberty.arquillian</groupId>
+            <artifactId>arquillian-liberty-managed-jakarta-junit</artifactId>
+            <version>2.1.4</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
@@ -174,9 +189,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-weld-embedded</artifactId>
-            <version>4.0.0.Final</version>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.25.1</version>
             <scope>test</scope>
         </dependency>
         <!-- TEST -->
@@ -211,6 +226,12 @@
                         </dependency>
 
                     </copyDependencies>
+                    <arquillianProperties>
+                        <javaVmArguments>
+                            -Dsystem.context.root=/${arquillian.war.name}
+                        </javaVmArguments>
+                        <allowConnectingToRunningServer>true</allowConnectingToRunningServer>
+                    </arquillianProperties>
                 </configuration>
             </plugin>
 
@@ -268,13 +289,13 @@
                             </sourceDirs>
                         </configuration>
                     </execution>
-                        <execution>
-                            <id>test-compile</id>
-                            <phase>test-compile</phase>
-                            <goals>
-                                <goal>test-compile</goal>
-                            </goals>
-                        </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
                 </executions>
 
                 <dependencies>
@@ -310,19 +331,12 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.2.5</version>
-                <dependencies>
-
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.10.2</version>
-                    </dependency>
-
-                </dependencies>
                 <configuration>
-                    <test>me.domantelio.psk.test.IT</test>
+                    <systemPropertyVariables>
+                        <arquillian.war.name>${arquillian.war.name}.war</arquillian.war.name>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 

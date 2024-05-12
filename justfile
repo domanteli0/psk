@@ -30,6 +30,12 @@ trash: drop-db clean
 console:
     java -jar target/liberty/wlp/usr/shared/resources/h2-*.jar
 
-it-tests:
-    -mvn liberty:start test
-    mvn liberty:stop
+package: clean
+    mvn package
+
+config-arq: package
+    mvn liberty:create liberty:install-feature
+    mvn liberty:configure-arquillian
+
+it-tests: config-arq
+    mvn failsafe:integration-test
