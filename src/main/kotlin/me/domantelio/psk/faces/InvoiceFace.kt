@@ -62,6 +62,10 @@ open class InvoiceFace(
 
     }
 
+    open fun items(): List<Item> {
+        return itemRepository.findByInvoiceId(thisInvoice.id!!)
+    }
+
     @Transactional
     open fun appendItem(): String {
         itemRepository.createItem(

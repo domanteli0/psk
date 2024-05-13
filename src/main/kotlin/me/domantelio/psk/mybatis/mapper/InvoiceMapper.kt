@@ -11,6 +11,7 @@ import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.invoice
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.name
 import me.domantelio.psk.mybatis.model.Invoice
 import org.apache.ibatis.annotations.*
+import org.apache.ibatis.mapping.FetchType
 import org.apache.ibatis.type.JdbcType
 import org.mybatis.cdi.Mapper
 import org.mybatis.dynamic.sql.insert.render.InsertStatementProvider
@@ -26,7 +27,7 @@ import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper
 @Mapper
 interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
     @InsertProvider(type=SqlProviderAdapter::class, method="insert")
-    @Options(useGeneratedKeys=true,keyProperty="row.id")
+    @Options(useGeneratedKeys=true, keyProperty="row.id")
     fun insert(insertStatement: InsertStatementProvider<Invoice>): Int
 
     @InsertProvider(type = SqlProviderAdapter::class, method = "insertMultipleWithGeneratedKeys")
@@ -38,21 +39,18 @@ interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMap
         Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
         Result(column="DATE_TIME", property="dateTime", jdbcType=JdbcType.TIMESTAMP),
-        Result(column="items", property="invoiceId", javaType = List::class,
-            many = Many(select = "getItemsByInvoiceId")
+        Result(column="ID", property="items", javaType = List::class,
+            many = Many(
+                select = "me.domantelio.psk.mybatis.mapper.ItemMapper.selectWithInvoice",
+                fetchType = FetchType.EAGER
+            )
         )
     ])
-    fun selectMany(selectStatement: SelectStatementProvider): List<Invoice>
+    fun selectOne(selectStatement: SelectStatementProvider): Invoice?
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @ResultMap("InvoiceResult")
-    fun selectOne(selectStatement: SelectStatementProvider): Invoice?
-
-    @Select("SELECT * FROM ITEM WHERE invoiceId = #{invoiceId}")
-    @Results(value = [
-        Result(property = "invoiceId", column = "invoiceId"),
-    ])
-    fun getItemsByInvoiceId(invoiceId: String): List<Item?>?
+    fun selectMany(selectStatement: SelectStatementProvider): List<Invoice>
 }
 
 fun InvoiceMapper.count(completer: CountCompleter) =
@@ -101,8 +99,8 @@ fun InvoiceMapper.select(completer: SelectCompleter) =
 fun InvoiceMapper.selectDistinct(completer: SelectCompleter) =
     selectDistinct(this::selectMany, columnList, invoice, completer)
 
-fun InvoiceMapper.selectByPrimaryKey(id_: String) =
-    selectOne {
+fun InvoiceMapper.selectByPrimaryKey(id_: String): Invoice? =
+    this.selectOne {
         where { id isEqualTo id_ }
     }
 

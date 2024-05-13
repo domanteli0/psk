@@ -4,22 +4,7 @@
         <feature>webProfile-10.0</feature>
         <feature>persistenceContainer-3.1</feature>
         <feature>bells-1.0</feature>
-        <feature>localConnector-1.0</feature>
-        <!--        <feature>adminCenter-1.0</feature>-->
-        <!--        <feature>restConnector-2.0</feature>-->
-        <!--        <feature>mpOpenAPI-3.1</feature>-->
-        <!--        <feature>restfulWS-3.1</feature>-->
     </featureManager>
-
-    <!--    <basicRegistry id="basic">-->
-    <!--        <user name="admin" password="password" />-->
-    <!--    </basicRegistry>-->
-    <!--    <administrator-role>-->
-    <!--        <user>admin</user>-->
-    <!--    </administrator-role>-->
-    <!--    <remoteFileAccess>-->
-    <!--        <writeDir>${server.config.dir}</writeDir>-->
-    <!--    </remoteFileAccess>-->
 
     <httpEndpoint
             id="defaultHttpEndpoint"

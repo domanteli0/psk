@@ -52,6 +52,10 @@ open class ItemRepository() {
         }
     }
 
+    fun findByInvoiceId(invoiceId: String): List<Item> {
+        return mapper.selectWithInvoice(id_ = invoiceId)
+    }
+
     open fun attachTo(item: Item, invoice: Invoice) {
         mapper.setInvoiceId(item.id!!, invoice.id!!)
     }

@@ -11,14 +11,8 @@ import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.item
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.price
 import me.domantelio.psk.mybatis.model.Item
-import org.apache.ibatis.annotations.InsertProvider
+import org.apache.ibatis.annotations.*
 import org.mybatis.cdi.Mapper
-import org.apache.ibatis.annotations.Options
-import org.apache.ibatis.annotations.Param
-import org.apache.ibatis.annotations.Result
-import org.apache.ibatis.annotations.ResultMap
-import org.apache.ibatis.annotations.Results
-import org.apache.ibatis.annotations.SelectProvider
 import org.apache.ibatis.type.JdbcType
 import org.mybatis.dynamic.sql.SqlBuilder.isIn
 import org.mybatis.dynamic.sql.insert.render.InsertStatementProvider
@@ -44,7 +38,7 @@ import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper
 @Mapper
 interface ItemMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
     @InsertProvider(type=SqlProviderAdapter::class, method = "insert")
-    @Options(useGeneratedKeys = true, keyProperty = "item.id")
+    @Options(useGeneratedKeys = true, keyProperty = "row.id")
     fun insert(insertStatement: InsertStatementProvider<Item>): Int
 
     @InsertProvider(type = SqlProviderAdapter::class, method = "insertMultipleWithGeneratedKeys")
@@ -61,9 +55,13 @@ interface ItemMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<Item>
 
-    @SelectProvider(type=SqlProviderAdapter::class, method="select")
+    @SelectProvider(type = SqlProviderAdapter::class, method="select")
     @ResultMap("ItemResult")
     fun selectOne(selectStatement: SelectStatementProvider): Item?
+
+    @Select("SELECT * FROM ITEM WHERE INVOICE_ID = #{param1}")
+    @ResultMap("ItemResult")
+    fun selectWithInvoice(id_: String): List<Item>
 }
 
 fun ItemMapper.count(completer: CountCompleter) =

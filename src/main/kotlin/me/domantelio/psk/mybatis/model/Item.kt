@@ -11,5 +11,5 @@ data class Item(
     var description: String? = null,
     var name: String? = null,
     var price: Int? = null,
-    var invoiceId: String? = null
+    var invoiceId: String? = null // TODO: @One, https://codingnomads.com/mybatis-nested-relationships-one-many
 )
