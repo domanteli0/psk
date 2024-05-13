@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory
 @Named
 @RequestScoped
 open class IndexItemFace(
-    private var allItems: List<Item> = listOf(),
-    private var itemToCreate: Item = Item(),
+    var allItems: List<Item> = listOf(),
+    var itemToCreate: Item = Item(),
 ) : Serializable {
     public constructor() : this(listOf(), Item())
 
@@ -23,12 +23,6 @@ open class IndexItemFace(
     private lateinit var service: ItemRepository
 
     private var logger: Logger = LoggerFactory.getLogger(IndexItemFace::class.java)
-
-    open fun getAllItems(): List<Item> { return allItems }
-    open fun setAllItems(items: List<Item>) { this.allItems = items }
-
-    open fun getItemToCreate(): Item { return itemToCreate }
-    open fun setItemToCreate(itemToCreate: Item) { this.itemToCreate = itemToCreate }
 
     @PostConstruct
     fun init() {

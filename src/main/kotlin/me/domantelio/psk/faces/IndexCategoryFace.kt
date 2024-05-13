@@ -15,8 +15,8 @@ import java.io.Serializable
 @Named
 @RequestScoped
 open class CategoryFace(
-     private var allCategories: List<Category> = listOf(),
-     private var categoryToCreate: Category = Category(),
+     var allCategories: List<Category> = listOf(),
+     var categoryToCreate: Category = Category(),
 ) : Serializable {
     public constructor() : this(listOf(), Category())
 
@@ -27,12 +27,6 @@ open class CategoryFace(
     private lateinit var service: CategoryRepository
 
     private val logger = LoggerFactory.getLogger(javaClass)
-
-    public fun getAllCategories(): List<Category> { return allCategories }
-    public fun setAllCategories(categories: List<Category>) { this.allCategories = categories }
-
-    public fun getCategoryToCreate(): Category { return categoryToCreate }
-    public fun setCategoryToCreate(categoryToCreate: Category) { this.categoryToCreate = categoryToCreate }
 
     @PostConstruct
     fun init() {

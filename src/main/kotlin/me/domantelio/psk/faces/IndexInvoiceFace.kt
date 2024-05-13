@@ -16,8 +16,8 @@ import java.io.Serializable
 @Named
 @RequestScoped
 open class IndexInvoiceFace(
-    private var allInvoices: List<Invoice> = listOf(),
-    private var invoiceToCreate: Invoice = Invoice(),
+    var allInvoices: List<Invoice> = listOf(),
+    var invoiceToCreate: Invoice = Invoice(),
 ) : Serializable {
     constructor() : this(listOf(), Invoice())
 
@@ -28,12 +28,6 @@ open class IndexInvoiceFace(
 
     @PersistenceUnit
     private lateinit var emf: EntityManagerFactory
-
-    fun getAllInvoices(): List<Invoice> { return allInvoices }
-    fun setAllInvoices(invoices: List<Invoice>) { this.allInvoices = invoices }
-
-    fun getInvoiceToCreate(): Invoice { return invoiceToCreate }
-    fun setInvoiceToCreate(invoiceToCreate: Invoice) { this.invoiceToCreate = invoiceToCreate }
 
     @PostConstruct
     fun init() = this.loadAllInvoices()
