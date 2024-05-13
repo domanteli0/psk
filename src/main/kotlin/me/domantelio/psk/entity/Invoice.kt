@@ -28,7 +28,6 @@ class Invoice() {
     @ManyToMany(cascade = [CascadeType.PERSIST])
     var categories: MutableSet<Category> = mutableSetOf()
 
-
     @LoggedInvocation
     fun getTotalPrice(): Int {
         val logger: Logger = LoggerFactory.getLogger(javaClass)
@@ -42,3 +41,4 @@ class Invoice() {
             .fold(0, Int::plus)
     }
 }
+
