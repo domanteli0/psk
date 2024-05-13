@@ -26,6 +26,50 @@
     </h2>
     <p><em> #{me.domantelio.psk.util.Date.toSimpleDateString(invoiceFace.thisInvoice.dateTime)} </em></p>
 
+
+    <h2 style="text-align:left;">
+        #{invoiceFace.thisInvoice.name}
+
+        <span style="float:right;">
+            #{invoiceFace.thisInvoice.getTotalPrice()} $
+        </span>
+    </h2>
+    <p><em> #{me.domantelio.psk.util.Date.toSimpleDateString(invoiceFace.thisInvoice.purchaseDateTime)} </em></p>
+
+    <div class="card">
+        <h2>Categories</h2>
+        <h:form if="selectCategoryForm">
+            <h:panelGrid columns="2">
+                <h:selectManyCheckbox value="#{invoiceFace.selected}">
+                    <f:selectItems value="#{invoiceFace.available}" var="entry"
+                                   itemValue="#{entry}" itemLabel="#{entry}">
+                        <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
+                    </f:selectItems>
+                </h:selectManyCheckbox>
+                <h:commandButton
+                        value="Save"
+                        f:actionListener="#{invoiceFace.changeSelection}">
+                    <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
+                </h:commandButton>
+            </h:panelGrid>
+        </h:form>
+
+        <h:form if="newCategoryForm">
+            <h:panelGrid columns="2">
+                <h:inputText id="categoryName"
+                             value="#{invoiceFace.categoryToCreate.name}"
+                             pt:placeholder="New Category Name"
+                             required="true"/>
+                <h:commandButton
+                        value="+"
+                        f:actionListener="#{invoiceFace.appendCategory}">
+                    <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
+                </h:commandButton>
+            </h:panelGrid>
+            <!--                action="index?faces-redirect=true"/>-->
+        </h:form>
+    </div>
+
     <h2>Items</h2>
 
     <h:form if="itemForm">

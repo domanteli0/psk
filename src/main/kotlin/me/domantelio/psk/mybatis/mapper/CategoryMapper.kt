@@ -8,34 +8,20 @@ import me.domantelio.psk.mybatis.mapper.CategoryDynamicSqlSupport.category
 import me.domantelio.psk.mybatis.mapper.CategoryDynamicSqlSupport.id
 import me.domantelio.psk.mybatis.mapper.CategoryDynamicSqlSupport.name
 import me.domantelio.psk.mybatis.model.Category
-import org.apache.ibatis.annotations.InsertProvider
-import org.mybatis.cdi.Mapper
-import org.apache.ibatis.annotations.Options
-import org.apache.ibatis.annotations.Param
-import org.apache.ibatis.annotations.Result
-import org.apache.ibatis.annotations.ResultMap
-import org.apache.ibatis.annotations.Results
-import org.apache.ibatis.annotations.SelectProvider
+import me.domantelio.psk.mybatis.model.Invoice
+import org.apache.ibatis.annotations.*
+import org.apache.ibatis.mapping.FetchType
 import org.apache.ibatis.type.JdbcType
+import org.mybatis.cdi.Mapper
 import org.mybatis.dynamic.sql.insert.render.InsertStatementProvider
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter
-import org.mybatis.dynamic.sql.util.kotlin.CountCompleter
-import org.mybatis.dynamic.sql.util.kotlin.DeleteCompleter
-import org.mybatis.dynamic.sql.util.kotlin.KotlinUpdateBuilder
-import org.mybatis.dynamic.sql.util.kotlin.SelectCompleter
-import org.mybatis.dynamic.sql.util.kotlin.UpdateCompleter
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.countFrom
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.deleteFrom
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.insert
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.insertMultipleWithGeneratedKeys
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectDistinct
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectList
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectOne
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.update
+import org.mybatis.dynamic.sql.util.kotlin.*
+import org.mybatis.dynamic.sql.util.kotlin.mybatis3.*
 import org.mybatis.dynamic.sql.util.mybatis3.CommonCountMapper
 import org.mybatis.dynamic.sql.util.mybatis3.CommonDeleteMapper
 import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper
+
 
 @Mapper
 interface CategoryMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
@@ -47,16 +33,26 @@ interface CategoryMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMa
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     fun insertMultiple(@Param("insertStatement") insertStatement: String, @Param("records") records: List<Category>): Int
 
-    @SelectProvider(type=SqlProviderAdapter::class, method="select")
+    @SelectProvider(type = SqlProviderAdapter::class, method="select")
     @Results(id="CategoryResult", value = [
         Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
-        Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR)
+        Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
+        Result(column="INVOICE_ID", property="belongsTo", javaType = Invoice::class,
+            one = One(
+                select = "me.domantelio.psk.mybatis.mapper.InvoiceMapper.selectById",
+                fetchType = FetchType.EAGER
+            )
+        )
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<Category>
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @ResultMap("CategoryResult")
     fun selectOne(selectStatement: SelectStatementProvider): Category?
+
+    @Select("SELECT c.* FROM category c INNER JOIN invoice_category ic ON c.id = ic.CATEGORIES_ID WHERE ic.BELONGSTO_ID = #{invoiceId}")
+    @ResultMap("CategoryResult")
+    fun selectByInvoiceId(invoiceId: String): List<Category>
 }
 
 fun CategoryMapper.count(completer: CountCompleter) =

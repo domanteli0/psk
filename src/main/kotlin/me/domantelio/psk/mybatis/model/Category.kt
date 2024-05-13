@@ -4,7 +4,10 @@
  */
 package me.domantelio.psk.mybatis.model
 
+import java.util.*
+
 data class Category(
-    var id: String? = null,
-    var name: String? = null
+    var id: String? = UUID.randomUUID().toString(),
+    var name: String? = null,
+    var belongsTo: Invoice? = null
 )

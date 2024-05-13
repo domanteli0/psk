@@ -31,27 +31,32 @@
     </h:form>
 
     <h:dataTable id="invoice-table" value="#{indexInvoiceFace.allInvoices}" var="invoice">
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                <h:link outcome="invoice">
-                    <f:param name="invoiceId" value="#{invoice.id}"/>
-                    #{invoice.name}
-                </h:link>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Item count</f:facet>
-                #{invoice.items.stream().count()}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Price</f:facet>
-                #{invoice.totalPrice}
-            </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            <h:link outcome="invoice">
+                <f:param name="invoiceId" value="#{invoice.id}"/>
+                #{invoice.name}
+            </h:link>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Item count</f:facet>
+            #{invoice.items.stream().count()}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Price</f:facet>
+            #{invoice.totalPrice}
+        </h:column>
         <h:column>
             <f:facet name="header">Categories</f:facet>
-            <strong> TODO </strong>
+            <ui:repeat value="#{invoice.categories}" var="cat">
+                <div style="padding-bottom: 0.5rem">
+                    <pf:chip style="background: #{CategoryFace.colorOfCategory(cat)}">
+                        #{cat.name}
+                    </pf:chip>
+                </div>
+            </ui:repeat>
         </h:column>
     </h:dataTable>
-
 
     <h:link outcome="others">
         <h2>OTHERS</h2>

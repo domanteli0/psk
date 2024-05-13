@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional
 import jakarta.ws.rs.WebApplicationException
 import me.domantelio.psk.mybatis.mapper.*
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.id
+import me.domantelio.psk.mybatis.model.Category
 import me.domantelio.psk.mybatis.model.Invoice
 import me.domantelio.psk.mybatis.model.Item
 import org.slf4j.*
@@ -59,5 +60,13 @@ open class InvoiceRepository() {
         return mapper.selectOne {
             where { InvoiceDynamicSqlSupport.name.isEqualTo(name_) }
         }
+    }
+
+    fun appendCategory(invoice: Invoice, category: Category) {
+        mapper.addCategory(invoice.id!!, category.id!!)
+    }
+
+    fun removeCategory(invoice: Invoice, category: Category) {
+        mapper.removeCategory(invoice.id!!, category.id!!)
     }
 }

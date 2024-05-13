@@ -11,6 +11,7 @@ data class Invoice(
     var name: String? = null,
     var dateTime: Date? = null,
     var items: List<Item> = listOf(),
+    var categories: List<Category> = listOf(),
 ) {
     fun getTotalPrice(): Int {
         return items

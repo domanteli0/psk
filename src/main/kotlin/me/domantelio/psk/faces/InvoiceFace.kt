@@ -6,6 +6,7 @@ import jakarta.faces.context.FacesContext
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
+import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.invoiceId
 import me.domantelio.psk.mybatis.model.*
 import me.domantelio.psk.repositoy.CategoryRepository
 import me.domantelio.psk.repositoy.InvoiceRepository
@@ -49,11 +50,11 @@ open class InvoiceFace(
         val invoiceId = requestParameters["invoiceId"]
         val invoiceUUID = UUID.fromString(invoiceId)
         thisInvoice = invoiceRepository.findInvoiceById(invoiceUUID)!!
-//        todo
-//        selected = thisInvoice.categories
-//            .filter { it.name != null }
-//            .map { it.name!! }
-//            .toList()
+
+        selected = thisInvoice.categories
+            .filter { it.name != null }
+            .map { it.name!! }
+            .toList()
 
         available = categoryRepository.findAllCategories()
             .filter { it.name != null }
@@ -77,28 +78,26 @@ open class InvoiceFace(
 
     @Transactional
     open fun appendCategory(): String {
-//        thisInvoice.categories.add(categoryToCreate)
-//        invoiceRepository.updateInvoice(thisInvoice)
-        TODO()
+        categoryRepository.createCategory(categoryToCreate)
+        invoiceRepository.appendCategory(thisInvoice, categoryToCreate)
 
         return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }
 
     @Transactional
     open fun changeSelection(): String {
-//        logger.debug("SELECTED: ${selected.toStr()}")
-//
-//        val oldCategories = thisInvoice.categories
-//
-//        thisInvoice.categories = selected
-//            .map { categoryRepository.findCategoryByName(it)!! }
-//            .toMutableSet()
-//
-//        invoiceRepository.updateInvoice(thisInvoice)
-//
-//        logger.debug("OLD: ${oldCategories.toStr()}")
-//        logger.debug("NEW: ${thisInvoice.categories.toStr()}")
-        TODO()
+        val oldCategories = thisInvoice.categories
+
+        for (category in oldCategories) {
+            invoiceRepository.removeCategory(thisInvoice, category)
+        }
+
+        var newCategories = selected
+            .map { categoryRepository.findCategoryByName(it)!! }
+
+        for (category in newCategories) {
+            invoiceRepository.appendCategory(thisInvoice, category)
+        }
 
         return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }

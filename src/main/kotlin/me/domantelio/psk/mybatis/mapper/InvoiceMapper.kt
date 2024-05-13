@@ -4,7 +4,6 @@
  */
 package me.domantelio.psk.mybatis.mapper
 
-import me.domantelio.psk.entity.Item
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.dateTime
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.id
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.invoice
@@ -39,9 +38,16 @@ interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMap
         Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
         Result(column="DATE_TIME", property="dateTime", jdbcType=JdbcType.TIMESTAMP),
-        Result(column="ID", property="items", javaType = List::class,
+        Result(
+            column = "ID", property = "items", javaType = List::class,
             many = Many(
                 select = "me.domantelio.psk.mybatis.mapper.ItemMapper.selectWithInvoice",
+                fetchType = FetchType.EAGER
+            ),
+        ),
+        Result(column="ID", property="categories", javaType = List::class,
+            many = Many(
+                select = "me.domantelio.psk.mybatis.mapper.CategoryMapper.selectByInvoiceId",
                 fetchType = FetchType.EAGER
             )
         )
@@ -51,6 +57,12 @@ interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMap
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @ResultMap("InvoiceResult")
     fun selectMany(selectStatement: SelectStatementProvider): List<Invoice>
+
+    @Insert("INSERT INTO invoice_category (BELONGSTO_ID, CATEGORIES_ID) VALUES (#{invoiceId}, #{categoryId})")
+    fun addCategory(@Param("invoiceId") invoiceId: String, @Param("categoryId") categoryId: String): Int
+
+    @Delete("DELETE FROM invoice_category WHERE BELONGSTO_ID = #{invoiceId} AND CATEGORIES_ID = #{categoryId}")
+    fun removeCategory(@Param("invoiceId") invoiceId: String?, @Param("categoryId") categoryId: String?): Int
 }
 
 fun InvoiceMapper.count(completer: CountCompleter) =

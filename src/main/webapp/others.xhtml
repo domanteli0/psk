@@ -17,6 +17,31 @@
         <h1>Index page</h1>
     </h:link>
 
+    <h2>Categories</h2>
+    <h:dataTable id="category-table" value="#{categoryFace.allCategories}" var="category">
+        <h:column>
+            <f:facet name="header">Id</f:facet>
+            #{category.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{category.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Belongs to (count)</f:facet>
+            #{category.belongsTo.size()}
+        </h:column>
+    </h:dataTable>
+
+    <h:form if="categoryForm">
+        <h:outputText for="catName" value="Name: "/>
+        <h:inputText id="catName" value="#{categoryFace.categoryToCreate.name}" required="true"/>
+        <br/>
+        <h:commandButton
+                value="Create new category"
+                f:actionListener="#{categoryFace.createCategory}"/>
+    </h:form>
+
     <h2>Items</h2>
 
     <h:form id="itemForm">

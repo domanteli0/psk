@@ -14,17 +14,14 @@ import java.io.Serializable
 
 @Named
 @RequestScoped
-open class CategoryFace(
+open class OtherCategoryFace(
      var allCategories: List<Category> = listOf(),
      var categoryToCreate: Category = Category(),
 ) : Serializable {
     public constructor() : this(listOf(), Category())
 
     @Inject
-    private lateinit var colors: ColorService
-
-    @Inject
-    private lateinit var service: CategoryRepository
+    private lateinit var repository: CategoryRepository
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -34,19 +31,13 @@ open class CategoryFace(
     }
 
     private fun loadAllCategories() {
-        this.allCategories = service.findAllCategories()
+        this.allCategories = repository.findAllCategories()
     }
 
     @Transactional
     @LoggedInvocation
     open fun createCategory(): String {
-        service.createCategory(categoryToCreate)
+        repository.createCategory(categoryToCreate)
         return ""
-    }
-
-    @LoggedInvocation
-    open fun colorOfCategory(category: Category): String {
-        logger.debug("Category hash: ${category.hashCode()}")
-        return colors.fromHashCode(category)
     }
 }

@@ -31,8 +31,8 @@ open class CategoryRepository() {
     }
 
     @Transactional
-    open fun deleteCategory(categoryId: UUID) {
-        mapper.delete { where { id.isEqualTo(categoryId.toString()) } }.let {
+    open fun deleteCategory(categoryId: String) {
+        mapper.delete { where { id.isEqualTo(categoryId) } }.let {
             if (it == 1) {
                 logger.debug("Deleted Category with id [$categoryId]")
             } else {

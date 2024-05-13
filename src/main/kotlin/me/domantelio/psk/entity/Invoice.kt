@@ -24,8 +24,7 @@ class Invoice() {
     @JoinColumn(name="INVOICE_ID")
     var items: MutableList<Item> = mutableListOf()
 
-    // @ManyToMany(cascade = [(CascadeType.REMOVE)])
-    @ManyToMany(cascade = [CascadeType.PERSIST])
+    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
     var categories: MutableSet<Category> = mutableSetOf()
 
     @LoggedInvocation
