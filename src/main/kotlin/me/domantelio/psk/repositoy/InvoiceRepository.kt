@@ -7,6 +7,7 @@ import jakarta.ws.rs.WebApplicationException
 import me.domantelio.psk.mybatis.mapper.*
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.id
 import me.domantelio.psk.mybatis.model.Invoice
+import me.domantelio.psk.mybatis.model.Item
 import org.slf4j.*
 import java.util.*
 
@@ -18,6 +19,9 @@ open class InvoiceRepository() {
     @Inject
     private lateinit var mapper: InvoiceMapper
 
+    @Inject
+    private lateinit var itemMapper: ItemMapper
+
     @Transactional
     open fun createInvoice(invoice: Invoice) {
         mapper.insert(invoice)
@@ -26,6 +30,7 @@ open class InvoiceRepository() {
 
     open fun updateInvoice(invoice: Invoice) {
         mapper.updateByPrimaryKey(invoice)
+
         logger.info("Updated Invoice $invoice")
     }
 

@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional
 import jakarta.ws.rs.WebApplicationException
 import me.domantelio.psk.mybatis.mapper.*
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
+import me.domantelio.psk.mybatis.model.Invoice
 import me.domantelio.psk.mybatis.model.Item
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -49,5 +50,9 @@ open class ItemRepository() {
         return mapper.select {
             where { name.isEqualTo(name_) }
         }
+    }
+
+    open fun attachTo(item: Item, invoice: Invoice) {
+        mapper.setInvoiceId(item.id!!, invoice.id!!)
     }
 }

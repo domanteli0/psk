@@ -24,76 +24,7 @@
             #{invoiceFace.thisInvoice.getTotalPrice()} $
         </span>
     </h2>
-    <p><em> #{me.domantelio.psk.util.Date.toSimpleDateString(invoiceFace.thisInvoice.purchaseDateTime)} </em></p>
-
-    <div class="card">
-        <h2>Categories</h2>
-        <h:form if="selectCategoryForm">
-            <h:panelGrid columns="2">
-                <h:selectManyCheckbox value="#{invoiceFace.selected}">
-                    <f:selectItems value="#{invoiceFace.available}" var="entry"
-                                   itemValue="#{entry}" itemLabel="#{entry}">
-                        <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
-                    </f:selectItems>
-                </h:selectManyCheckbox>
-                <h:commandButton
-                        value="Save"
-                        f:actionListener="#{invoiceFace.changeSelection}">
-                    <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
-                </h:commandButton>
-            </h:panelGrid>
-        </h:form>
-
-        <h:form if="newCategoryForm">
-            <h:panelGrid columns="2">
-                <h:inputText id="categoryName"
-                             value="#{invoiceFace.categoryToCreate.name}"
-                             pt:placeholder="New Category Name"
-                             required="true"/>
-                <h:commandButton
-                        value="+"
-                        f:actionListener="#{invoiceFace.appendCategory}">
-                    <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
-                </h:commandButton>
-            </h:panelGrid>
-            <!--                action="index?faces-redirect=true"/>-->
-        </h:form>
-    </div>
-
-    <!--    <h5>Custom Layout</h5>-->
-    <!--    <pf:outputPanel id="customPanel">-->
-    <!--        <pf:selectManyCheckbox id="custom" value="#{checkboxView.selectedOptions2}" layout="custom">-->
-    <!--            <pf:ajax listener="#{checkboxView.selectedOptions2Changed}" />-->
-    <!--            <f:selectItem itemLabel="Option 1" itemValue="Option 1"/>-->
-    <!--            <f:selectItem itemLabel="Option 2" itemValue="Option 2"/>-->
-    <!--            <f:selectItem itemLabel="Option 3" itemValue="Option 3"/>-->
-    <!--        </pf:selectManyCheckbox>-->
-
-    <!--        <div class="grid text-center">-->
-    <!--            <div class="col">-->
-    <!--                <pf:outputLabel for="opt1" value="Option 1" styleClass="block mb-2"/>-->
-    <!--                <pf:checkbox id="opt1" for="custom" itemIndex="0"/>-->
-    <!--            </div>-->
-
-    <!--            <div class="col">-->
-    <!--                <pf:outputLabel for="opt2" value="Option 2" styleClass="block mb-2"/>-->
-    <!--                <pf:checkbox id="opt2" for="custom" itemIndex="1"/>-->
-    <!--            </div>-->
-
-    <!--            <div class="col">-->
-    <!--                <pf:outputLabel for="opt3" value="Option 3" styleClass="block mb-2"/>-->
-    <!--                <pf:checkbox id="opt3" for="custom" itemIndex="2"/>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </pf:outputPanel>-->
-    <!--    <ui:repeat value="#{invoiceFace.thisInvoice.categories}" var="cat">-->
-    <!--        <div style="padding-bottom: 0.5rem">-->
-    <!--        <pf:chip>-->
-    <!--                #{cat.name}-->
-    <!--        </pf:chip>-->
-    <!--        </div>-->
-    <!--    </ui:repeat>-->
-
+    <p><em> #{me.domantelio.psk.util.Date.toSimpleDateString(invoiceFace.thisInvoice.dateTime)} </em></p>
 
     <h2>Items</h2>
 
@@ -113,16 +44,14 @@
                          value="#{invoiceFace.itemToCreate.description}"
                          pt:placeholder="Description"
                          required="false"
-                         f:actionListener="#{invoiceFace.appendItem}"
             />
             <br/>
             <h:commandButton
                     value="Add new item"
-                    f:actionListener="#{invoiceFace.appendItem}">
+                    f:action="#{invoiceFace.appendItem}">
                 <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
             </h:commandButton>
         </h:panelGrid>
-        <!--                action="index?faces-redirect=true"/>-->
     </h:form>
     <h:dataTable value="#{invoiceFace.thisInvoice.items}" var="item">
         <h:column>

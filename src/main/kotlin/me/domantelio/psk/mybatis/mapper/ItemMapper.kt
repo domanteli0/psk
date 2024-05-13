@@ -1,11 +1,12 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-05-12T19:56:53.485652+03:00
+ * Generation date: 2024-05-13T00:14:43.563649+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
-import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.desc
+import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.description
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.id
+import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.invoiceId
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.item
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.name
 import me.domantelio.psk.mybatis.mapper.ItemDynamicSqlSupport.price
@@ -19,6 +20,7 @@ import org.apache.ibatis.annotations.ResultMap
 import org.apache.ibatis.annotations.Results
 import org.apache.ibatis.annotations.SelectProvider
 import org.apache.ibatis.type.JdbcType
+import org.mybatis.dynamic.sql.SqlBuilder.isIn
 import org.mybatis.dynamic.sql.insert.render.InsertStatementProvider
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter
@@ -41,20 +43,21 @@ import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper
 
 @Mapper
 interface ItemMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
-    @InsertProvider(type=SqlProviderAdapter::class, method="insert")
-    @Options(useGeneratedKeys=true,keyProperty="row.id")
+    @InsertProvider(type=SqlProviderAdapter::class, method = "insert")
+    @Options(useGeneratedKeys = true, keyProperty = "item.id")
     fun insert(insertStatement: InsertStatementProvider<Item>): Int
 
     @InsertProvider(type = SqlProviderAdapter::class, method = "insertMultipleWithGeneratedKeys")
-    @Options(useGeneratedKeys=true,keyProperty="records.id")
+    @Options(useGeneratedKeys=true, keyProperty="records.id")
     fun insertMultiple(@Param("insertStatement") insertStatement: String, @Param("records") records: List<Item>): Int
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @Results(id="ItemResult", value = [
         Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
-        Result(column="DESC", property="desc", jdbcType=JdbcType.VARCHAR),
+        Result(column="DESC", property="description", jdbcType=JdbcType.VARCHAR),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
-        Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER)
+        Result(column="PRICE", property="price", jdbcType=JdbcType.INTEGER),
+        Result(column="INVOICE_ID", property="invoiceId", jdbcType=JdbcType.VARCHAR)
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<Item>
 
@@ -76,16 +79,20 @@ fun ItemMapper.deleteByPrimaryKey(id_: String) =
 
 fun ItemMapper.insert(row: Item) =
     insert(this::insert, row, item) {
-        map(desc) toProperty "desc"
+        map(id) toProperty "id"
+        map(description) toProperty "description"
         map(name) toProperty "name"
         map(price) toProperty "price"
+        map(invoiceId) toProperty "invoiceId"
     }
 
 fun ItemMapper.insertMultiple(records: Collection<Item>) =
     insertMultipleWithGeneratedKeys(this::insertMultiple, records, item) {
-        map(desc) toProperty "desc"
+        map(id) toProperty "id"
+        map(description) toProperty "description"
         map(name) toProperty "name"
         map(price) toProperty "price"
+        map(invoiceId) toProperty "invoiceId"
     }
 
 fun ItemMapper.insertMultiple(vararg records: Item) =
@@ -93,12 +100,14 @@ fun ItemMapper.insertMultiple(vararg records: Item) =
 
 fun ItemMapper.insertSelective(row: Item) =
     insert(this::insert, row, item) {
-        map(desc).toPropertyWhenPresent("desc", row::desc)
+        map(id).toPropertyWhenPresent("id", row::id)
+        map(description).toPropertyWhenPresent("description", row::description)
         map(name).toPropertyWhenPresent("name", row::name)
         map(price).toPropertyWhenPresent("price", row::price)
+        map(invoiceId).toPropertyWhenPresent("invoiceId", row::invoiceId)
     }
 
-private val columnList = listOf(id, desc, name, price)
+private val columnList = listOf(id, description, name, price, invoiceId)
 
 fun ItemMapper.selectOne(completer: SelectCompleter) =
     selectOne(this::selectOne, columnList, item, completer)
@@ -114,35 +123,48 @@ fun ItemMapper.selectByPrimaryKey(id_: String) =
         where { id isEqualTo id_ }
     }
 
-fun ItemMapper.update(completer: UpdateCompleter) =
+fun ItemMapper.update(completer: UpdateCompleter): Int =
     update(this::update, item, completer)
+
+fun ItemMapper.setInvoiceId(itemId: String, invoiceId_: String): Int =
+    setInvoiceId(listOf(itemId), invoiceId_)
+
+fun ItemMapper.setInvoiceId(ids: Collection<String>, invoiceId_: String): Int =
+    update {
+        set(invoiceId) equalTo invoiceId_
+        where { isIn(id, ids) }
+    }
 
 fun KotlinUpdateBuilder.updateAllColumns(row: Item) =
     apply {
-        set(desc) equalToOrNull row::desc
+        set(description) equalToOrNull row::description
         set(name) equalToOrNull row::name
         set(price) equalToOrNull row::price
+        set(invoiceId) equalToOrNull row::invoiceId
     }
 
 fun KotlinUpdateBuilder.updateSelectiveColumns(row: Item) =
     apply {
-        set(desc) equalToWhenPresent row::desc
+        set(description) equalToWhenPresent row::description
         set(name) equalToWhenPresent row::name
         set(price) equalToWhenPresent row::price
+        set(invoiceId) equalToWhenPresent row::invoiceId
     }
 
 fun ItemMapper.updateByPrimaryKey(row: Item) =
     update {
-        set(desc) equalToOrNull row::desc
+        set(description) equalToOrNull row::description
         set(name) equalToOrNull row::name
         set(price) equalToOrNull row::price
+        set(invoiceId) equalToOrNull row::invoiceId
         where { id isEqualTo row.id!! }
     }
 
 fun ItemMapper.updateByPrimaryKeySelective(row: Item) =
     update {
-        set(desc) equalToWhenPresent row::desc
+        set(description) equalToWhenPresent row::description
         set(name) equalToWhenPresent row::name
         set(price) equalToWhenPresent row::price
+        set(invoiceId) equalToWhenPresent row::invoiceId
         where { id isEqualTo row.id!! }
     }

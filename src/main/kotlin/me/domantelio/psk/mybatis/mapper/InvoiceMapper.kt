@@ -1,42 +1,27 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-05-12T19:56:53.492092+03:00
+ * Generation date: 2024-05-13T00:14:43.572427+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
+import me.domantelio.psk.entity.Item
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.dateTime
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.id
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.invoice
 import me.domantelio.psk.mybatis.mapper.InvoiceDynamicSqlSupport.name
 import me.domantelio.psk.mybatis.model.Invoice
-import org.apache.ibatis.annotations.InsertProvider
-import org.mybatis.cdi.Mapper
-import org.apache.ibatis.annotations.Options
-import org.apache.ibatis.annotations.Param
-import org.apache.ibatis.annotations.Result
-import org.apache.ibatis.annotations.ResultMap
-import org.apache.ibatis.annotations.Results
-import org.apache.ibatis.annotations.SelectProvider
+import org.apache.ibatis.annotations.*
 import org.apache.ibatis.type.JdbcType
+import org.mybatis.cdi.Mapper
 import org.mybatis.dynamic.sql.insert.render.InsertStatementProvider
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter
-import org.mybatis.dynamic.sql.util.kotlin.CountCompleter
-import org.mybatis.dynamic.sql.util.kotlin.DeleteCompleter
-import org.mybatis.dynamic.sql.util.kotlin.KotlinUpdateBuilder
-import org.mybatis.dynamic.sql.util.kotlin.SelectCompleter
-import org.mybatis.dynamic.sql.util.kotlin.UpdateCompleter
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.countFrom
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.deleteFrom
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.insert
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.insertMultipleWithGeneratedKeys
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectDistinct
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectList
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.selectOne
-import org.mybatis.dynamic.sql.util.kotlin.mybatis3.update
+import org.mybatis.dynamic.sql.util.kotlin.*
+import org.mybatis.dynamic.sql.util.kotlin.mybatis3.*
 import org.mybatis.dynamic.sql.util.mybatis3.CommonCountMapper
 import org.mybatis.dynamic.sql.util.mybatis3.CommonDeleteMapper
 import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper
+
 
 @Mapper
 interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMapper {
@@ -52,13 +37,22 @@ interface InvoiceMapper : CommonCountMapper, CommonDeleteMapper, CommonUpdateMap
     @Results(id="InvoiceResult", value = [
         Result(column="ID", property="id", jdbcType=JdbcType.VARCHAR, id=true),
         Result(column="NAME", property="name", jdbcType=JdbcType.VARCHAR),
-        Result(column="DATE_TIME", property="dateTime", jdbcType=JdbcType.TIMESTAMP)
+        Result(column="DATE_TIME", property="dateTime", jdbcType=JdbcType.TIMESTAMP),
+        Result(column="items", property="invoiceId", javaType = List::class,
+            many = Many(select = "getItemsByInvoiceId")
+        )
     ])
     fun selectMany(selectStatement: SelectStatementProvider): List<Invoice>
 
     @SelectProvider(type=SqlProviderAdapter::class, method="select")
     @ResultMap("InvoiceResult")
     fun selectOne(selectStatement: SelectStatementProvider): Invoice?
+
+    @Select("SELECT * FROM ITEM WHERE invoiceId = #{invoiceId}")
+    @Results(value = [
+        Result(property = "invoiceId", column = "invoiceId"),
+    ])
+    fun getItemsByInvoiceId(invoiceId: String): List<Item?>?
 }
 
 fun InvoiceMapper.count(completer: CountCompleter) =
@@ -72,14 +66,16 @@ fun InvoiceMapper.deleteByPrimaryKey(id_: String) =
         where { id isEqualTo id_ }
     }
 
-fun InvoiceMapper.insert(row: Invoice) =
+fun InvoiceMapper.insert(row: Invoice): Int =
     insert(this::insert, row, invoice) {
+        map(id) toProperty "id"
         map(name) toProperty "name"
         map(dateTime) toProperty "dateTime"
     }
 
 fun InvoiceMapper.insertMultiple(records: Collection<Invoice>) =
     insertMultipleWithGeneratedKeys(this::insertMultiple, records, invoice) {
+        map(id) toProperty "id"
         map(name) toProperty "name"
         map(dateTime) toProperty "dateTime"
     }
@@ -89,6 +85,7 @@ fun InvoiceMapper.insertMultiple(vararg records: Invoice) =
 
 fun InvoiceMapper.insertSelective(row: Invoice) =
     insert(this::insert, row, invoice) {
+        map(name).toPropertyWhenPresent("id", row::id)
         map(name).toPropertyWhenPresent("name", row::name)
         map(dateTime).toPropertyWhenPresent("dateTime", row::dateTime)
     }

@@ -48,12 +48,12 @@ open class InvoiceFace(
 
         val invoiceId = requestParameters["invoiceId"]
         val invoiceUUID = UUID.fromString(invoiceId)
-        thisInvoice = invoiceRepository.findInvoiceById(invoiceUUID)
-
-        selected = thisInvoice.categories
-            .filter { it.name != null }
-            .map { it.name!! }
-            .toList()
+        thisInvoice = invoiceRepository.findInvoiceById(invoiceUUID)!!
+//        todo
+//        selected = thisInvoice.categories
+//            .filter { it.name != null }
+//            .map { it.name!! }
+//            .toList()
 
         available = categoryRepository.findAllCategories()
             .filter { it.name != null }
@@ -64,35 +64,38 @@ open class InvoiceFace(
 
     @Transactional
     open fun appendItem(): String {
-        thisInvoice.items.add(itemToCreate)
-        invoiceRepository.updateInvoice(thisInvoice)
+        itemRepository.createItem(
+            itemToCreate.apply { invoiceId = thisInvoice.id }
+        )
 
-        return ""
+        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }
 
     @Transactional
     open fun appendCategory(): String {
-        thisInvoice.categories.add(categoryToCreate)
-        invoiceRepository.updateInvoice(thisInvoice)
+//        thisInvoice.categories.add(categoryToCreate)
+//        invoiceRepository.updateInvoice(thisInvoice)
+        TODO()
 
-        return ""
+        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }
 
     @Transactional
     open fun changeSelection(): String {
-        logger.debug("SELECTED: ${selected.toStr()}")
+//        logger.debug("SELECTED: ${selected.toStr()}")
+//
+//        val oldCategories = thisInvoice.categories
+//
+//        thisInvoice.categories = selected
+//            .map { categoryRepository.findCategoryByName(it)!! }
+//            .toMutableSet()
+//
+//        invoiceRepository.updateInvoice(thisInvoice)
+//
+//        logger.debug("OLD: ${oldCategories.toStr()}")
+//        logger.debug("NEW: ${thisInvoice.categories.toStr()}")
+        TODO()
 
-        val oldCategories = thisInvoice.categories
-
-        thisInvoice.categories = selected
-            .map { categoryRepository.findCategoryByName(it)!! }
-            .toMutableSet()
-
-        invoiceRepository.updateInvoice(thisInvoice)
-
-        logger.debug("OLD: ${oldCategories.toStr()}")
-        logger.debug("NEW: ${thisInvoice.categories.toStr()}")
-
-        return ""
+        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }
 }

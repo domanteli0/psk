@@ -26,9 +26,6 @@ open class IndexInvoiceFace(
     @Inject
     private lateinit var service: InvoiceRepository
 
-    @PersistenceUnit
-    private lateinit var emf: EntityManagerFactory
-
     @PostConstruct
     fun init() = this.loadAllInvoices()
 
@@ -39,7 +36,6 @@ open class IndexInvoiceFace(
     @Transactional
     open fun createInvoice(): String {
         service.createInvoice(invoiceToCreate)
-        val id: Any? = emf.persistenceUnitUtil.getIdentifier(invoiceToCreate)
-        return "/invoice?faces-redirect=true&amp;invoiceId=$id"
+        return "/invoice?faces-redirect=true&amp;invoiceId=${invoiceToCreate.id}"
     }
 }

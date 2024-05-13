@@ -1,6 +1,6 @@
 /*
  * Auto-generated file. Created by MyBatis Generator
- * Generation date: 2024-05-12T19:56:53.491454+03:00
+ * Generation date: 2024-05-13T00:14:43.571748+03:00
  */
 package me.domantelio.psk.mybatis.mapper
 
@@ -72,11 +72,13 @@ fun CategoryMapper.deleteByPrimaryKey(id_: String) =
 
 fun CategoryMapper.insert(row: Category) =
     insert(this::insert, row, category) {
+        map(id) toProperty "id"
         map(name) toProperty "name"
     }
 
 fun CategoryMapper.insertMultiple(records: Collection<Category>) =
     insertMultipleWithGeneratedKeys(this::insertMultiple, records, category) {
+        map(id) toProperty "id"
         map(name) toProperty "name"
     }
 
@@ -85,6 +87,7 @@ fun CategoryMapper.insertMultiple(vararg records: Category) =
 
 fun CategoryMapper.insertSelective(row: Category) =
     insert(this::insert, row, category) {
+        map(id).toPropertyWhenPresent("id", row::id)
         map(name).toPropertyWhenPresent("name", row::name)
     }
 

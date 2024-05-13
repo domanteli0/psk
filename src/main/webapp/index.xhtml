@@ -43,19 +43,13 @@
                 #{invoice.items.stream().count()}
             </h:column>
             <h:column>
-                <f:facet name="header">Categories</f:facet>
-                <ui:repeat value="#{invoice.categories}" var="cat">
-                    <div style="padding-bottom: 0.5rem">
-                        <pf:chip style="background: #{categoryFace.colorOfCategory(cat)}">
-                            #{cat.name}
-                        </pf:chip>
-                    </div>
-                </ui:repeat>
-            </h:column>
-            <h:column>
                 <f:facet name="header">Price</f:facet>
                 #{invoice.totalPrice}
             </h:column>
+        <h:column>
+            <f:facet name="header">Categories</f:facet>
+            <strong> TODO </strong>
+        </h:column>
     </h:dataTable>
 
 
