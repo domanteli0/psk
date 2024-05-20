@@ -19,7 +19,7 @@ class Category() {
     @ManyToMany(mappedBy = "categories")
     var belongsTo: MutableSet<Invoice> = emptySet<Invoice>().toMutableSet()
 
-    @Column(name = "title", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     var name: String? = null
         set(value) { field = value?.lowercase(Locale.US) }
 
