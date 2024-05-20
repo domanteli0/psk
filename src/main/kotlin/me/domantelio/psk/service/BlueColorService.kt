@@ -1,16 +1,12 @@
 package me.domantelio.psk.service
 
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.enterprise.inject.Default
-import java.io.Serializable
-import kotlin.random.Random
-
-// TODO: colors for light theme
+import jakarta.enterprise.inject.Alternative
 
 @ApplicationScoped
-@Default
-class ColorService() : Serializable {
-    fun fromHashCode(obj: Any): String {
+@Alternative
+class BlueColorService() : ColorService() {
+    override fun fromHashCode(obj: Any): String {
         with(Static) {
             val hash: UInt = shiftToUInt(obj.hashCode())
             val index = hash % (COLORS.size.toUInt())
@@ -20,11 +16,10 @@ class ColorService() : Serializable {
 
     object Static {
         val COLORS: List<String> = listOf(
-            "#b3bdf9",
-            "#c196f8",
-            "#f4907b",
-            "#c8d891",
-            "#f7ca6f",
+            "#9dcbf9",
+            "#8ba0e0",
+            "#bff1ff",
+            "#71b2e8"
         )
 
         fun shiftToUInt(i: Int): UInt {
