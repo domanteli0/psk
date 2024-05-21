@@ -12,7 +12,6 @@ import me.domantelio.psk.entity.Item
 import me.domantelio.psk.repositoy.CategoryRepository
 import me.domantelio.psk.repositoy.InvoiceRepository
 import me.domantelio.psk.repositoy.ItemRepository
-import me.domantelio.psk.service.ColorService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.Serializable

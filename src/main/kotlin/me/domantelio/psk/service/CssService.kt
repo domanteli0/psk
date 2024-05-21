@@ -1,7 +1,11 @@
 package me.domantelio.psk.service
 
 import jakarta.enterprise.context.RequestScoped
+import java.io.Serializable
 
 @RequestScoped
-class CssService() {
+open class CssService() : Serializable {
+    open fun getCssTheme(): String {
+        return "light.css"
+    }
 }
