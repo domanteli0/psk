@@ -2,37 +2,18 @@
 
 ## TODO/Progress
 
-- [ ] 1.  Pademonstruoti darbo su pasirinktais įrankiais (IDE, Application Server, Build tool, Version Control System) minimalų ciklą (**0.15**):
-    1.  naudojantis IDE padaryti minimalų pakeitimą projekto išeities tekstuose ir surinkti projektą, (**0.05 balo**)
-    2.  gebėti parodyti, kurioje vietoje IDE yra pasiekiamas dalykinis serveris (Application Server), kaip startuoti/sustabdyti dalykinį serverį, paleisti surinkimo rezultatus vykdymui dalykiniame serveryje, (**0.05 balo**)
-    3.  projekto išeities tekstų pakeitimus patalpinti versijų kontrolės sistemoje. (**0.05 balo**)
-- [ ] 2.  DB, ORM/JPA ir DataMapper/MyBatis (**0.25**):
-    - [x] 1.  Sukurti duomenų bazę. Turi būti naudojami one-to-many ir many-to-many ryšiai. (**0.05 balo)**
-    - [ ] 2.  Sugeneruotoms/parašytoms JPA esybėms gebėti parodyti ir paaiškinti, (**0.1 balo**)
-        - [ ] kaip esybių laukai (Java klasių laukai) atitinka DB lentelių stulpelius;
-        - [ ] ką daryti, jei norime lauką pavadinti kitaip nei pavadintas atitinkamas stulpelis._
-        - [ ] Gebėti parodyti ir paaiškinti, kur esybėse yra one-to-many bei many-to-many ryšiai ir kaip jie atitinka DB lenteles.
-    - [ ] 3.  Tą patį gebėti paaiškinti MyBatis esybėms (**0.1**), .i.e:
-        - [ ] kaip esybių laukai (Java klasių laukai) atitinka DB lentelių stulpelius;
-        - [ ] ką daryti, jei norime lauką pavadinti kitaip nei pavadintas atitinkamas stulpelis.
-        - [ ] Gebėti parodyti ir paaiškinti, kur esybėse yra one-to-many bei many-to-many ryšiai ir kaip jie atitinka DB lenteles.
-- [ ] 3.  Įgyvendinti vieną panaudos atvejį (**0.6**):
-    - [ ] 1.  _UI_: su laisvai pasirinkta technologija:
-        - [ ] 1.  reikia sukurti bent vieną puslapį, pateikiantį DB esančius duomenis/dalį duomenų. Būtina pateikti kelių susijusių DB esybių duomenis (pvz.: universitetas ir jo studentai; studentai ir jų lankomi kursai). T.y., formuojant UI turi būti naviguojama per DB ryšius one-to-many/many-to-one/many-to-many (bent per vieną). (**0.1**)
-        - [ ] 2.  reikia sukurti bent vieną formą, leidžiančią įvesti duomenis. Įvesti duomenys turi būti automatiškai įrašomi į kokios nors klasės objektą (data binding), o vėliau ir į DB. (**0.1**)
-    - [ ] 2.  _Dalykinio funkcionalumo komponentas_ (Business logic component):
-        - [ ] turi būti bent vienas CDI komponentas, apdorojantis per UI įvestus duomenis.
-        - [ ] Reikia gebėti paaiškinti, kada Java klasė virsta komponentu,
-        - [ ] ką reiškia @RequestScoped, @SessionScoped, @ApplicationScoped bei @Inject anotacijos. (**0.05**)
-    - [ ] 3.  _Duomenų prieigos komponentas_ (Data Access component - DAO): Turi būti duomenų išsaugojimo/modifikavimo duomenų bazėje DAO komponentas:
-        - [ ] 1.  Naudojantis ORM/JPA (**0.1**)
-        - [ ] 2.  Naudojantis DataMapper/MyBatis (**0.1**)
-    - [ ] 4.  Reikia gebėti paaiškinti skirtumus/privalumus/trūkumus tarp ORM ir DataMapper (kada ką geriau naudoti). (**0.1**)
-    - [ ] 5.  Būtinos automatinės/deklaratyvios DB transakcijos (rankomis rašyti "begin()/commit()" negalima). (**0.05**)
-
-### Other
-
-- [X] Use H2 server mode, to allow multiple connections (to use h2console simultaneously)
+- [ ] 1. Optimistinis rakinimas: pademonstruoti, kaip gaunamas OptimisticLockException, ir kaip programuotojas gali įgyvendinti tinkamą apdorojimą (0.3)
+   - [ ] 1.1. Kas nutinka su einamąja transakcija, kai gaunamas OptimisticLockException? 
+   - [ ] 1.2. Kas nutinka su einamuoju EntityManager, kai gaunamas OptimisticLockException? Kaip išsaugoti esybę į DB po OptimisticLockException?
+- [ ] 2. Asinchroninis komunikavimas: pateikti ilgą skaičiavimą atliekančio komponento (galima naudoti Thread.sleep(...) ir teisingo komunikavimo su juo pavyzdį (0.2)
+    - [ ] 2.1. Ar gali asinchroninis komponentas įsijungti į kvietėjo pradėtą transakciją?
+    - [ ] 2.2. Ar gali asinchroninis komponentas naudoti @RequestScoped EntityManager?
+- [ ] 3. Glass-box extensibility: pateikti po vieną pavyzdį:
+    - [ ] 3.1. CDI alternatives (@Alternative), alternatyvos pasirinkimas beans.xml faile (0.1)
+    - [ ] 3.2. CDI specialization (@Specializes) (0.1)
+    - [ ] 3.3. CDI Interceptor, interceptor'ių įjungimas/išjungimas beans.xml faile (0.1)
+    - [ ] 3.4. CDI Decorator, dekoratorių įjungimas/išjungimas beans.xml faile ( 0.1)
+- [ ] 4. RESTful paslaugos pavyzdys: įgyvendinti RESTful paslaugas, leidžiančias gauti (GET), sukurti (POST) ir modifikuoti (PUT) kokią nors esybę duomenų bazėje (0.1)
 
 ## Development
 

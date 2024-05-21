@@ -45,3 +45,7 @@ start:
 
 stop:
     mvn liberty:stop
+
+test TO_TEST="*":
+    mvn test-compile
+    mvn surefire:test -Dtest={{TO_TEST}}

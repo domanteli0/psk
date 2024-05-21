@@ -23,6 +23,7 @@
         <kotlin.code.style>official</kotlin.code.style>
 
         <hibernate.version>6.4.4.Final</hibernate.version>
+        <serialization.version>1.6.3</serialization.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -149,6 +150,20 @@
             <version>7.3.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm -->
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-serialization-json-jvm</artifactId>
+            <version>${serialization.version}</version>
+        </dependency>
+
 
         <!--        <dependency>-->
 <!--            <groupId>org.jboss.arquillian.junit5</groupId>-->
@@ -301,6 +316,11 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-serialization</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-noarg</artifactId>
                         <version>${kotlin.version}</version>
                     </dependency>
@@ -315,6 +335,7 @@
                     <javaParameters>true</javaParameters>
                     <jvmTarget>21</jvmTarget>
                     <compilerPlugins>
+                        <plugin>kotlinx-serialization</plugin>
                         <plugin>all-open</plugin>
                         <plugin>jpa</plugin>
                     </compilerPlugins>
@@ -353,13 +374,13 @@
                     </dependency>
 
                 </dependencies>
-                <configuration>
-                    <goal>
-                        test
-                    </goal>
-                    <test>it.me.domantelio.psk.E2E</test>
-                    <test>it.me.domantelio.psk.rest.Item</test>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <goal>-->
+<!--                        test-->
+<!--                    </goal>-->
+<!--                    <test>it.me.domantelio.psk.E2E</test>-->
+<!--                    <test>it.me.domantelio.psk.rest.Item</test>-->
+<!--                </configuration>-->
             </plugin>
 
         </plugins>

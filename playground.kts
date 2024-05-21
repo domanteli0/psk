@@ -1,4 +1,8 @@
 import kotlin.random.Random
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+
+Json.decodeFromString<Unit>("")
 
 val iMax = Int.MAX_VALUE
 

@@ -25,7 +25,7 @@ class BlueColorService() : Serializable, ColorService {
 
         fun shiftToUInt(i: Int): UInt {
             return if (i < 0) {
-                (i + (Int.MAX_VALUE + 1)).toUInt()
+                (i + Int.MAX_VALUE + 1).toUInt()
             } else {
                 (i.toUInt() + (UInt.MAX_VALUE.shr(1))) + 1u
             }

@@ -48,7 +48,7 @@ class ItemController() {
     @Path("/{id}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    fun update(@RequestBody item: Item, @QueryParam("id") itemId: UUID): Response {
+    fun update(@PathParam("id") itemId: UUID, @RequestBody item: Item): Response {
         val item = item.apply { id = itemId }
         itemRepository.updateItem(item)
 
@@ -58,7 +58,7 @@ class ItemController() {
     @Path("/{id}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    fun delete(@QueryParam("id") itemId: UUID): Response {
+    fun delete(@PathParam("id") itemId: UUID): Response {
         itemRepository.deleteItem(itemId)
         return Response.ok().build()
     }
