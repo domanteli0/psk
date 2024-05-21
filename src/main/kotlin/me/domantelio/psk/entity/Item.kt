@@ -15,6 +15,9 @@ open class Item() {
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = UUID.randomUUID()
 
+    @Version
+    var version: Long = 0
+
     var name: String? = null
 
     var price: Int? = null

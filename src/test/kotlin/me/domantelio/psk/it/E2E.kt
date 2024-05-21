@@ -12,8 +12,7 @@ import org.junit.jupiter.api.AfterAll
 import org.openqa.selenium.chrome.ChromeOptions
 import kotlin.random.Random
 
-//@ExtendWith(ArquillianExtension::class)
-class IT {
+class E2E {
 
     companion object {
         var rng: Random = Random(System.currentTimeMillis())
@@ -42,7 +41,7 @@ class IT {
         }
     }
 
-    private val logger = LoggerFactory.getLogger(IT::class.java)
+    private val logger = LoggerFactory.getLogger(E2E::class.java)
 
     @Test
     fun createInvoiceAddItem() {

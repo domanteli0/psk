@@ -357,7 +357,8 @@
                     <goal>
                         test
                     </goal>
-<!--                    <test>it.me.domantelio.psk.IT</test>-->
+                    <test>it.me.domantelio.psk.E2E</test>
+                    <test>it.me.domantelio.psk.rest.Item</test>
                 </configuration>
             </plugin>
 
