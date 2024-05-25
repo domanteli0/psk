@@ -50,6 +50,10 @@ open class RestBase {
                     POST(HttpRequest.BodyPublishers.ofString(Json.encodeToString(withBody!!)))
                 }
 
+                "PUT" -> {
+                    PUT(HttpRequest.BodyPublishers.ofString(Json.encodeToString(withBody!!)))
+                }
+
                 "DELETE" -> {
                     if (withBody != null) {
                         throw RuntimeException("BODY ON DELETE REQUEST")

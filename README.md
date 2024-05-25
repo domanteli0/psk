@@ -9,8 +9,8 @@
     - [ ] 2.1. Ar gali asinchroninis komponentas įsijungti į kvietėjo pradėtą transakciją?
     - [ ] 2.2. Ar gali asinchroninis komponentas naudoti @RequestScoped EntityManager?
 - [ ] 3. Glass-box extensibility: pateikti po vieną pavyzdį:
-    - [ ] 3.1. CDI alternatives (@Alternative), alternatyvos pasirinkimas beans.xml faile (0.1)
-    - [ ] 3.2. CDI specialization (@Specializes) (0.1)
+    - [X] 3.1. CDI alternatives (@Alternative), alternatyvos pasirinkimas beans.xml faile (0.1)
+    - [X] 3.2. CDI specialization (@Specializes) (0.1)
     - [ ] 3.3. CDI Interceptor, interceptor'ių įjungimas/išjungimas beans.xml faile (0.1)
     - [ ] 3.4. CDI Decorator, dekoratorių įjungimas/išjungimas beans.xml faile ( 0.1)
 - [ ] 4. RESTful paslaugos pavyzdys: įgyvendinti RESTful paslaugas, leidžiančias gauti (GET), sukurti (POST) ir modifikuoti (PUT) kokią nors esybę duomenų bazėje (0.1)

@@ -46,7 +46,7 @@ class ItemController {
 
         val itemToUpdate = item.apply { name = "test-item-name-updated" }
 //        val itemToUpdate = item.apply { name = "test-item-name-updated"; version = 1 }
-        val updatedItem = send<_, Item>(to = "$URL/api/items/$itemId2", withBody = itemToUpdate, method = "POST")
+        val updatedItem = send<_, Item>(to = "$URL/api/items/$itemId2", withBody = itemToUpdate, method = "PUT")
 
 //        assertThat(updatedItem).isEqualTo(itemToUpdate.apply { version = itemToUpdate.version + 1 })
         assertThat(updatedItem).isEqualTo(itemToUpdate)
@@ -65,7 +65,6 @@ class ItemController {
 
         val items2 = send<NoBody, List<Item>>(to = "$URL/api/items", method = "GET")
         assertThat(items2).hasSize(items1.size - 2)
-        // TODO: assert that: response == []
     }
 
 }

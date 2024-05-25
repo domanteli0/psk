@@ -19,10 +19,10 @@ open class Item() {
     @Serializable(with = UUIDSerializer::class)
     var id: UUID? = UUID.randomUUID()
 
-//    @Version
+    @Version
     var version: Long = 0
 
-    var name: String? = null
+    public var name: String? = null
 
     var price: Int? = null
 

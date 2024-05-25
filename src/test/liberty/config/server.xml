@@ -1,0 +1,28 @@
+<server description="Sample Liberty server">
+
+    <featureManager>
+        <feature>webProfile-10.0</feature>
+        <feature>persistenceContainer-3.1</feature>
+        <feature>bells-1.0</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+
+    <httpEndpoint
+            id="defaultHttpEndpoint"
+            httpPort="${http.port}"
+            httpsPort="${https.port}"
+            host="*"
+    />
+
+    <webApplication location="psk.war" contextRoot="/"/>
+
+    <library id="H2JDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
+    </library>
+
+    <dataSource id="h2db" jndiName="jdbc/test-ds">
+        <jdbcDriver libraryRef="H2JDBCLib"/>
+        <properties URL="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"/>
+    </dataSource>
+
+</server>

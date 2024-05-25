@@ -12,8 +12,13 @@ import java.util.logging.Logger
 
 @ApplicationScoped
 open class ItemRepository() {
+
     @PersistenceContext
     private lateinit var em: EntityManager
+
+    public open fun setEm(em: EntityManager) {
+        this.em = em
+    }
 
     @Transactional
     open fun createItem(item: Item) {

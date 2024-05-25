@@ -46,7 +46,7 @@ class ItemController() {
     }
 
     @Path("/{id}")
-    @POST
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
     fun update(@PathParam("id") itemId: UUID, @RequestBody item: Item): Response {
         val item = item.apply { id = itemId }

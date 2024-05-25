@@ -49,3 +49,8 @@ stop:
 test TO_TEST="*":
     mvn test-compile
     mvn surefire:test -Dtest={{TO_TEST}}
+
+unit-test:
+    mvn test-compile
+    mvn surefire:test -Dtest=*ControllerTests
+

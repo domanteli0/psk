@@ -1,15 +1,74 @@
 package me.domantelio.psk.rest
 
-import kotlinx.serialization.encodeToString
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.Test
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import jakarta.inject.Inject
+import jakarta.persistence.EntityManager
+import jakarta.persistence.Query
+import me.domantelio.psk.EntityManagerFactoryProducer
+import me.domantelio.psk.Util.getEntity
+import me.domantelio.psk.entity.Item
+import me.domantelio.psk.repositoy.ItemRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.jboss.weld.junit5.WeldInitiator
+import org.jboss.weld.junit5.WeldSetup
+import org.jboss.weld.junit5.auto.AddBeanClasses
+import org.jboss.weld.junit5.auto.EnableAutoWeld
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
+@EnableAutoWeld
+@AddBeanClasses(ItemRepository::class, Item::class, EntityManagerFactoryProducer::class, ItemController::class)
 class ItemControllerTests {
-    @Test @Disabled
-    fun optimisticLockException() {
-        TODO()
+
+    @WeldSetup
+    var weld: WeldInitiator = WeldInitiator
+        .from(WeldInitiator.createWeld())
+        .build()
+
+    @Inject
+    lateinit var em: EntityManager
+
+    @Inject
+    private lateinit var itemRepo: ItemRepository
+
+    @Inject
+    private lateinit var itemController: ItemController
+
+    @BeforeEach
+    fun setUp() {
+        itemRepo.setEm(em)
+    }
+
+    @Test
+    fun testWorks() {
+        assertNotNull(itemRepo)
+    }
+
+    @Test
+    fun repoWorks() {
+        itemRepo.createItem(Item().apply { name = "test-item" })
+        val item = itemRepo.findItemsByName("test-item").first()
+
+        println(item)
+        assertThat(item.name).isEqualTo("test-item")
+    }
+
+    @Test
+    fun emWorks() {
+        em.transaction.begin()
+        em.persist(Item().apply { name = "test-item" })
+        em.transaction.commit()
+
+        val query: Query = em.createQuery("SELECT i FROM Item i")
+        assertThat((query.resultList as List<Item>).first().name).isEqualTo("test-item")
+    }
+
+    @Test
+    fun controllerWorks() {
+        val item = itemController.create(Item().apply { name = "test-item" }).getEntity<Item>()
+
+        itemController.update(item.id!!, item.apply { name = "updated-test-item" })
+
+        assertThat(item.name).isEqualTo("updated-test-item")
     }
 }
