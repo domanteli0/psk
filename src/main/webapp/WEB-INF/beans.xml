@@ -7,9 +7,11 @@
 
     <interceptors>
         <class>me.domantelio.psk.interceptors.LoggedInvocationImpl</class>
-<!--        <class>me.domantelio.psk.interceptors.LogFacesParametersImpl</class>-->
     </interceptors>
     <alternatives>
-        <class>me.domantelio.psk.service.BlueColorService</class>
+<!--        <class>me.domantelio.psk.service.BlueColorService</class>-->
     </alternatives>
+    <decorators>
+<!--        <class>me.domantelio.psk.decorators.WrongTotalPriceCalculator</class>-->
+    </decorators>
 </beans>

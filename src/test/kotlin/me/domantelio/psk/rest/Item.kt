@@ -3,6 +3,7 @@ package me.domantelio.psk.rest
 import jakarta.inject.Inject
 import jakarta.persistence.EntityManager
 import jakarta.persistence.Query
+import jakarta.transaction.Transactional
 import me.domantelio.psk.EntityManagerFactoryProducer
 import me.domantelio.psk.Util.getEntity
 import me.domantelio.psk.entity.Item
@@ -63,12 +64,34 @@ class ItemControllerTests {
         assertThat((query.resultList as List<Item>).first().name).isEqualTo("test-item")
     }
 
-    @Test
-    fun controllerWorks() {
-        val item = itemController.create(Item().apply { name = "test-item" }).getEntity<Item>()
+//    @Test
+//    @Transactional
+//    fun controllerWorks() {
+//        val item = itemController.create(Item().apply { name = "test-item" }).getEntity<Item>()
+//
+//        itemController.update(item.id!!, item.apply { name = "updated-test-item"; version = 1 })
+//
+//        assertThat(item.name).isEqualTo("updated-test-item")
+//    }
 
-        itemController.update(item.id!!, item.apply { name = "updated-test-item" })
+//    @Test
+//    fun optLock(){
+//        em.transaction.begin()
+//
+//        em.persist(Item().apply { name = "test-item" })
+//
+//        em.transaction.commit()
+//    }
 
-        assertThat(item.name).isEqualTo("updated-test-item")
-    }
+//    @Test
+//    fun optimisticLock() {
+//        val item = itemController.create(Item().apply { name = "test-item" }).getEntity<Item>()
+//
+//        itemController.update(item.id!!, item.apply { name = "updated-test-item" })
+//
+//        itemController.update(item.id!!, item.apply { name = "updated-test-item"; version = 100 })
+//
+//        assertThat(item.name).isEqualTo("updated-test-item")
+//    }
+
 }

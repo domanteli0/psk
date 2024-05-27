@@ -16,6 +16,10 @@ class Category() {
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = null
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    var version: Int? = null
+
     @ManyToMany(mappedBy = "categories")
     var belongsTo: MutableSet<Invoice> = emptySet<Invoice>().toMutableSet()
 

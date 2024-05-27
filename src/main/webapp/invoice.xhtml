@@ -17,6 +17,21 @@
         <h1>Index page</h1>
     </h:link>
 
+    <h:form if="invoiceNameUpdateForm">
+        <h:inputText id="invoiceName"
+                     value="#{invoiceFace.thisInvoice.name}"
+                     pt:placeholder="Invoice Name Placeholder"
+                     required="false"
+                     f:actionListener="#{invoiceFace.updateInvoice}"
+        />
+        <h:commandButton
+                value="~"
+                f:actionListener="#{invoiceFace.updateInvoice}">
+            <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
+        </h:commandButton>
+        <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
+    </h:form>
+
     <h2 style="text-align:left;">
         #{invoiceFace.thisInvoice.name}
 
@@ -89,6 +104,7 @@
         </h:panelGrid>
         <!--                action="index?faces-redirect=true"/>-->
     </h:form>
+
     <h:dataTable value="#{invoiceFace.thisInvoice.items}" var="item">
         <h:column>
             <f:facet name="header">Name</f:facet>
@@ -105,10 +121,12 @@
     </h:dataTable>
 
     <h:form>
-        <h:outputText value="#{totalPriceFace.calculatorStatus(invoiceFace.thisInvoice)}" />
+        <h:outputText value="#{totalPriceFace.calculatorStatus(invoiceFace.thisInvoice)}"/>
         <br/>
-        <h:commandButton value="Calculate total price?" disabled="#{totalPriceFace.isCalculating(invoiceFace.thisInvoice)}" action="#{totalPriceFace.calculate(invoiceFace.thisInvoice)}">
-            <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}" />
+        <h:commandButton value="Calculate total price?"
+                         disabled="#{totalPriceFace.isCalculating(invoiceFace.thisInvoice)}"
+                         action="#{totalPriceFace.calculate(invoiceFace.thisInvoice)}">
+            <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}"/>
         </h:commandButton>
     </h:form>
 

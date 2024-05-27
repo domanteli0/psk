@@ -2,6 +2,7 @@ package me.domantelio.psk.rest
 
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
+import jakarta.transaction.Transactional
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
@@ -48,6 +49,7 @@ class ItemController() {
     @Path("/{id}")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
     fun update(@PathParam("id") itemId: UUID, @RequestBody item: Item): Response {
         val item = item.apply { id = itemId }
         itemRepository.updateItem(item)

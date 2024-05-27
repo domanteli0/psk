@@ -2,6 +2,7 @@ package me.domantelio.psk.repositoy
 
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.persistence.EntityManager
+import jakarta.persistence.LockModeType
 import jakarta.persistence.PersistenceContext
 import jakarta.persistence.Query
 import jakarta.transaction.Transactional
@@ -29,6 +30,7 @@ open class ItemRepository() {
     @Transactional
     open fun updateItem(item: Item) {
         em.merge(item)
+//        em.lock(item, LockModeType.OPTIMISTIC);
         logger.info("Updated item$item")
     }
 

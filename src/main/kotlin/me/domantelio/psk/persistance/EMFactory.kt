@@ -20,7 +20,7 @@ open class EMFactory() {
     @Default
     @RequestScoped
     private fun createJTAEntityManager(): EntityManager {
-        return emf.createEntityManager(SynchronizationType.SYNCHRONIZED)
+        return emf.createEntityManager()
     }
 
     private fun closeDefaultEntityManager(@Disposes @Default em: EntityManager) {

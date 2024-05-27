@@ -14,6 +14,10 @@ class Invoice() {
     @GeneratedValue(strategy = GenerationType.UUID)
     var id: UUID? = null
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    var version: Long = 0
+
     @Column(columnDefinition = "TIMESTAMP", name = "date_time")
     var purchaseDateTime: LocalDateTime = LocalDateTime.now()
 

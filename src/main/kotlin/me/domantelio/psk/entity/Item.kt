@@ -20,7 +20,8 @@ open class Item() {
     var id: UUID? = UUID.randomUUID()
 
     @Version
-    var version: Int = 0
+    @Column(name = "OPT_LOCK_VERSION")
+    var version: Int? = null
 
     var name: String? = null
 

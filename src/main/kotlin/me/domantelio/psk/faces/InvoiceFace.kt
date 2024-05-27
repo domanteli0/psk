@@ -3,6 +3,7 @@ package me.domantelio.psk.faces
 import jakarta.annotation.PostConstruct
 import jakarta.enterprise.context.RequestScoped
 import jakarta.faces.context.FacesContext
+import jakarta.faces.view.ViewScoped
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.transaction.Transactional
@@ -20,7 +21,7 @@ import me.domantelio.psk.util.*
 import me.domantelio.psk.util.Collections.toStr
 
 @Named
-@RequestScoped
+@ViewScoped
 open class InvoiceFace(
     open var thisInvoice: Invoice = Invoice(),
     open var categoryToCreate: Category = Category(),
@@ -69,7 +70,7 @@ open class InvoiceFace(
         thisInvoice.items.add(itemToCreate)
         invoiceRepository.updateInvoice(thisInvoice)
 
-        return ""
+        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }
 
     @Transactional
@@ -77,7 +78,7 @@ open class InvoiceFace(
         thisInvoice.categories.add(categoryToCreate)
         invoiceRepository.updateInvoice(thisInvoice)
 
-        return ""
+        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
     }
 
     @Transactional
@@ -95,6 +96,13 @@ open class InvoiceFace(
         logger.debug("OLD: ${oldCategories.toStr()}")
         logger.debug("NEW: ${thisInvoice.categories.toStr()}")
 
-        return ""
+        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id}"
+    }
+
+    @Transactional
+    open fun updateInvoice() {
+        invoiceRepository.updateInvoice(thisInvoice)
+
+//        return "/invoice?faces-redirect=true&amp;invoiceId=${thisInvoice.id.toString()}"
     }
 }
