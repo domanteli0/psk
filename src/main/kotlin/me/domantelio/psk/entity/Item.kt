@@ -20,9 +20,9 @@ open class Item() {
     var id: UUID? = UUID.randomUUID()
 
     @Version
-    var version: Long = 0
+    var version: Int = 0
 
-    public var name: String? = null
+    var name: String? = null
 
     var price: Int? = null
 
@@ -51,5 +51,9 @@ open class Item() {
         result = 31 * result + (price ?: 0)
         result = 31 * result + (description?.hashCode() ?: 0)
         return result
+    }
+
+    override fun toString(): String {
+        return "Item(id=$id, version=$version, name=$name, price=$price, description=$description)"
     }
 }

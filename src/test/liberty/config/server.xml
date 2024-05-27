@@ -14,7 +14,7 @@
             host="*"
     />
 
-    <webApplication location="psk.war" contextRoot="/"/>
+    <webApplication location="psk.war" contextRoot="psk"/>
 
     <library id="H2JDBCLib">
         <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>

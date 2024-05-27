@@ -60,41 +60,6 @@
         </h:form>
     </div>
 
-    <!--    <h5>Custom Layout</h5>-->
-    <!--    <pf:outputPanel id="customPanel">-->
-    <!--        <pf:selectManyCheckbox id="custom" value="#{checkboxView.selectedOptions2}" layout="custom">-->
-    <!--            <pf:ajax listener="#{checkboxView.selectedOptions2Changed}" />-->
-    <!--            <f:selectItem itemLabel="Option 1" itemValue="Option 1"/>-->
-    <!--            <f:selectItem itemLabel="Option 2" itemValue="Option 2"/>-->
-    <!--            <f:selectItem itemLabel="Option 3" itemValue="Option 3"/>-->
-    <!--        </pf:selectManyCheckbox>-->
-
-    <!--        <div class="grid text-center">-->
-    <!--            <div class="col">-->
-    <!--                <pf:outputLabel for="opt1" value="Option 1" styleClass="block mb-2"/>-->
-    <!--                <pf:checkbox id="opt1" for="custom" itemIndex="0"/>-->
-    <!--            </div>-->
-
-    <!--            <div class="col">-->
-    <!--                <pf:outputLabel for="opt2" value="Option 2" styleClass="block mb-2"/>-->
-    <!--                <pf:checkbox id="opt2" for="custom" itemIndex="1"/>-->
-    <!--            </div>-->
-
-    <!--            <div class="col">-->
-    <!--                <pf:outputLabel for="opt3" value="Option 3" styleClass="block mb-2"/>-->
-    <!--                <pf:checkbox id="opt3" for="custom" itemIndex="2"/>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </pf:outputPanel>-->
-    <!--    <ui:repeat value="#{invoiceFace.thisInvoice.categories}" var="cat">-->
-    <!--        <div style="padding-bottom: 0.5rem">-->
-    <!--        <pf:chip>-->
-    <!--                #{cat.name}-->
-    <!--        </pf:chip>-->
-    <!--        </div>-->
-    <!--    </ui:repeat>-->
-
-
     <h2>Items</h2>
 
     <h:form if="itemForm">
@@ -138,6 +103,15 @@
             #{item.description}
         </h:column>
     </h:dataTable>
+
+    <h:form>
+        <h:outputText value="#{totalPriceFace.calculatorStatus(invoiceFace.thisInvoice)}" />
+        <br/>
+        <h:commandButton value="Calculate total price?" disabled="#{totalPriceFace.isCalculating(invoiceFace.thisInvoice)}" action="#{totalPriceFace.calculate(invoiceFace.thisInvoice)}">
+            <f:param name="invoiceId" value="#{invoiceFace.thisInvoice.id}" />
+        </h:commandButton>
+    </h:form>
+
 
 </h:body>
 </html>
